@@ -1,3 +1,5 @@
+package src.server;
+
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,6 +24,7 @@ public class ServerUi {
 	private JFrame serverFrame;
 	public static final Color LIGHTBLUE = new Color(230, 230, 250);
 	public static final Color LIGHTRED = new Color(255, 218, 185);
+	public static final Color SKIN = new Color(255, 228, 225);
 	/**
 	 * Launch the application.
 	 */
@@ -56,7 +59,7 @@ public class ServerUi {
 		serverFrame.getContentPane().setLayout(null);
 		
 		JButton btnNewButton = new JButton("start / stop");
-		btnNewButton.setBackground(new Color(255, 228, 225));
+		btnNewButton.setBackground(SKIN);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -73,14 +76,14 @@ public class ServerUi {
 		serverFrame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("<html>Highest<br>value:</html>");
-		lblNewLabel.setBounds(345, 13, 133, 61);
-		panel.add(lblNewLabel);
-		lblNewLabel.setBackground(LIGHTBLUE);
-		lblNewLabel.setOpaque(true);
-		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel.setFont(new Font("Courier New", Font.PLAIN, 18));
-		lblNewLabel.setBorder(BorderFactory.createLineBorder(Color.black));
+		JLabel lblhighestvalue = new JLabel("<html>Highest<br>value:</html>");
+		lblhighestvalue.setBounds(345, 13, 133, 61);
+		panel.add(lblhighestvalue);
+		lblhighestvalue.setBackground(LIGHTBLUE);
+		lblhighestvalue.setOpaque(true);
+		lblhighestvalue.setHorizontalAlignment(SwingConstants.LEFT);
+		lblhighestvalue.setFont(new Font("Courier New", Font.PLAIN, 18));
+		lblhighestvalue.setBorder(BorderFactory.createLineBorder(Color.black));
 		
 		JLabel lbllowestvalue = new JLabel("<html>Lowest<br>value:</html>");
 		lbllowestvalue.setBounds(345, 87, 133, 61);
@@ -89,7 +92,7 @@ public class ServerUi {
 		lbllowestvalue.setFont(new Font("Courier New", Font.PLAIN, 18));
 		lbllowestvalue.setBorder(BorderFactory.createLineBorder(Color.black));
 		lbllowestvalue.setOpaque(true);
-		lbllowestvalue.setBackground(new Color(255, 228, 225));
+		lbllowestvalue.setBackground(SKIN);
 		
 		JLabel lblfrequencyhz = new JLabel("<html>Frequency<br>(Hz):</html>");
 		lblfrequencyhz.setBounds(345, 161, 133, 61);
@@ -100,32 +103,33 @@ public class ServerUi {
 		lblfrequencyhz.setBackground(LIGHTBLUE);
 		lblfrequencyhz.setOpaque(true);
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		textPane.setBounds(490, 13, 126, 61);
-		panel.add(textPane);
-		textPane.setBackground(new Color(255, 228, 225));
-		textPane.setFont(new Font("Courier New", Font.PLAIN, 18));
-		textPane.setBorder(BorderFactory.createLineBorder(Color.black));
+		JTextPane textHighest = new JTextPane();
+		textHighest.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		textHighest.setBounds(490, 13, 126, 61);
+		panel.add(textHighest);
+		textHighest.setBackground(SKIN);
+		textHighest.setFont(new Font("Courier New", Font.PLAIN, 18));
+		textHighest.setBorder(BorderFactory.createLineBorder(Color.black));
 		
-		JTextPane textPane_1 = new JTextPane();
-		textPane_1.setBounds(490, 87, 126, 61);
-		panel.add(textPane_1);
-		textPane_1.setBackground(LIGHTBLUE);
-		textPane_1.setFont(new Font("Courier New", Font.PLAIN, 18));
-		textPane_1.setBorder(BorderFactory.createLineBorder(Color.black));
+		JTextPane textLowest = new JTextPane();
+		textLowest.setBounds(490, 87, 126, 61);
+		panel.add(textLowest);
+		textLowest.setBackground(LIGHTBLUE);
+		textLowest.setFont(new Font("Courier New", Font.PLAIN, 18));
+		textLowest.setBorder(BorderFactory.createLineBorder(Color.black));
 		
-		JTextPane textPane_2 = new JTextPane();
-		textPane_2.setBounds(490, 161, 126, 61);
-		panel.add(textPane_2);
-		textPane_2.setBackground(new Color(255, 228, 225));
-		textPane_2.setFont(new Font("Courier New", Font.PLAIN, 18));
-		textPane_2.setBorder(BorderFactory.createLineBorder(Color.black));
+		JTextPane textFrequencyHZ = new JTextPane();
+		textFrequencyHZ.setBounds(490, 161, 126, 61);
+		panel.add(textFrequencyHZ);
+		textFrequencyHZ.setBackground(SKIN);
+		textFrequencyHZ.setFont(new Font("Courier New", Font.PLAIN, 18));
+		textFrequencyHZ.setBorder(BorderFactory.createLineBorder(Color.black));
+		
 		
 		JTextPane textPane_3 = new JTextPane();
 		textPane_3.setBounds(22, 13, 311, 296);
 		panel.add(textPane_3);
-		textPane_3.setBackground(new Color(255, 228, 225));
+		textPane_3.setBackground(SKIN);
 		textPane_3.setFont(new Font("Courier New", Font.PLAIN, 18));
 		textPane_3.setBorder(BorderFactory.createLineBorder(Color.black));
 		
