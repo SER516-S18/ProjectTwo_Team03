@@ -1,4 +1,6 @@
-import java.util.*;
+package server;
+
+import java.util.HashMap;
 
 public class NumberService {
 

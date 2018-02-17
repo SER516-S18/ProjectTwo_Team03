@@ -1,18 +1,19 @@
-package src.server;
+package server;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import java.awt.Color;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
+import javax.swing.JPanel;
 import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Component;
 
 /**
  * @SER516 Project2_Team03
@@ -21,6 +22,7 @@ import java.awt.Component;
 
 public class ServerUi {
 	private JFrame serverFrame;
+
 	/**
 	 * Launch the application.
 	 */
@@ -43,6 +45,7 @@ public class ServerUi {
 	public ServerUi() {
 		initialize();
 	}
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -53,7 +56,7 @@ public class ServerUi {
 		serverFrame.setBounds(100, 100, 670, 588);
 		serverFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		serverFrame.getContentPane().setLayout(null);
-		
+
 		JButton btnNewButton = new JButton("start / stop");
 		btnNewButton.setBackground(ServerConstants.SKIN);
 		btnNewButton.addActionListener(new ActionListener() {
@@ -64,14 +67,14 @@ public class ServerUi {
 		btnNewButton.setBounds(448, 13, 192, 34);
 		btnNewButton.setBorder(BorderFactory.createLineBorder(Color.black));
 		serverFrame.getContentPane().add(btnNewButton);
-		
+
 		JPanel mainPanel = new JPanel();
 		mainPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		mainPanel.setBackground(ServerConstants.MAINPANELCOLOR);
 		mainPanel.setBounds(12, 59, 628, 323);
 		serverFrame.getContentPane().add(mainPanel);
 		mainPanel.setLayout(null);
-		
+
 		JLabel lblhighestvalue = new JLabel("<html>Highest<br>value:</html>");
 		lblhighestvalue.setBounds(345, 13, 133, 61);
 		mainPanel.add(lblhighestvalue);
@@ -80,7 +83,7 @@ public class ServerUi {
 		lblhighestvalue.setHorizontalAlignment(SwingConstants.LEFT);
 		lblhighestvalue.setFont(ServerConstants.COURIERFONT);
 		lblhighestvalue.setBorder(BorderFactory.createLineBorder(Color.black));
-		
+
 		JLabel lbllowestvalue = new JLabel("<html>Lowest<br>value:</html>");
 		lbllowestvalue.setBounds(345, 87, 133, 61);
 		mainPanel.add(lbllowestvalue);
@@ -89,7 +92,7 @@ public class ServerUi {
 		lbllowestvalue.setBorder(BorderFactory.createLineBorder(Color.black));
 		lbllowestvalue.setOpaque(true);
 		lbllowestvalue.setBackground(ServerConstants.SKIN);
-		
+
 		JLabel lblfrequencyhz = new JLabel("<html>Frequency<br>(Hz):</html>");
 		lblfrequencyhz.setBounds(345, 161, 133, 61);
 		mainPanel.add(lblfrequencyhz);
@@ -98,7 +101,7 @@ public class ServerUi {
 		lblfrequencyhz.setBorder(BorderFactory.createLineBorder(Color.black));
 		lblfrequencyhz.setBackground(ServerConstants.LIGHTBLUE);
 		lblfrequencyhz.setOpaque(true);
-		
+
 		JTextPane textHighest = new JTextPane();
 		textHighest.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		textHighest.setBounds(490, 13, 126, 61);
@@ -106,29 +109,28 @@ public class ServerUi {
 		textHighest.setBackground(ServerConstants.SKIN);
 		textHighest.setFont(ServerConstants.COURIERFONT);
 		textHighest.setBorder(BorderFactory.createLineBorder(Color.black));
-		
+
 		JTextPane textLowest = new JTextPane();
 		textLowest.setBounds(490, 87, 126, 61);
 		mainPanel.add(textLowest);
 		textLowest.setBackground(ServerConstants.LIGHTBLUE);
 		textLowest.setFont(ServerConstants.COURIERFONT);
 		textLowest.setBorder(BorderFactory.createLineBorder(Color.black));
-		
+
 		JTextPane textFrequencyHZ = new JTextPane();
 		textFrequencyHZ.setBounds(490, 161, 126, 61);
 		mainPanel.add(textFrequencyHZ);
 		textFrequencyHZ.setBackground(ServerConstants.SKIN);
 		textFrequencyHZ.setFont(ServerConstants.COURIERFONT);
 		textFrequencyHZ.setBorder(BorderFactory.createLineBorder(Color.black));
-		
-		
+
 		JTextPane textPane_3 = new JTextPane();
 		textPane_3.setBounds(22, 13, 311, 296);
 		mainPanel.add(textPane_3);
 		textPane_3.setBackground(ServerConstants.SKIN);
 		textPane_3.setFont(ServerConstants.COURIERFONT);
 		textPane_3.setBorder(BorderFactory.createLineBorder(Color.black));
-		
+
 		JTextPane textConsole = new JTextPane();
 		textConsole.setText("Console:");
 		textConsole.setFont(ServerConstants.COURIERFONT);
