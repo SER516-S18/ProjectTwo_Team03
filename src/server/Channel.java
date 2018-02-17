@@ -1,38 +1,38 @@
 import java.util.Random;
 
-public class ServerChannel {
+public class Channel {
 
 	private int min;
 	private int max;
 	private Random rand;
 
-	public ServerChannel() {
+	public Channel() {
 		this.rand = new Random();
 	}
 
-	public ServerChannel(int min, int max) {
+	public Channel(int min, int max) {
 		this();
 		this.min = min;
 		this.max = max;
 	}
 
-	public synchronized int GetMin() {
+	public int getMin() {
 		return this.min;
 	}
 
-	public synchronized int GetMax() {
+	public int getMax() {
 		return this.max;
 	}
 
-	public synchronized void SetMin(int min) {
+	public void setMin(int min) {
 		this.min = min;
 	}
 
-	public synchronized void SetMax(int max) {
+	public void setMax(int max) {
 		this.max = max;
 	}
 
-	public synchronized int Next() {
+	public int next() {
 		return this.rand.nextInt(this.max - this.min + 1) + this.min;
 	}
 
