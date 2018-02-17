@@ -15,7 +15,6 @@ import java.awt.Component;
 
 /**
  * @SER516 Project2_Team03
- * @author Rahul Gupta
  * @Version 1.0
  */
 
