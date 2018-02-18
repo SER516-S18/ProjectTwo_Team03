@@ -68,7 +68,7 @@ public class ServerUi {
 
 		JPanel display = new JPanel();
 		display.setBorder(BorderFactory.createLineBorder(Color.black));
-		display.setBackground(ServerConstants.SKIN);
+		display.setBackground(ServerConstants.LIGHTRED);
 		display.setBounds(22, 13, 311, 296);
 		display.setLayout(new GridBagLayout());
 		mainPanel.add(display);
@@ -77,8 +77,8 @@ public class ServerUi {
 		T.setFont(ServerConstants.BLINKINGTEXTFONT);
 		display.add(T);
 
-		JButton btnNewButton = new JButton("start / stop");
-		btnNewButton.setBackground(ServerConstants.SKIN);
+		JButton btnNewButton = new JButton("Start / Stop");
+		btnNewButton.setBackground(ServerConstants.LIGHTRED);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				serverRunning = !serverRunning;
@@ -101,23 +101,26 @@ public class ServerUi {
 		mainPanel.add(lblhighestvalue);
 		lblhighestvalue.setBackground(ServerConstants.LIGHTBLUE);
 		lblhighestvalue.setOpaque(true);
-		lblhighestvalue.setHorizontalAlignment(SwingConstants.LEFT);
+		lblhighestvalue.setHorizontalAlignment(SwingConstants.CENTER);
+		lblhighestvalue.setVerticalAlignment(SwingConstants.CENTER);
 		lblhighestvalue.setFont(ServerConstants.COURIERFONT);
 		lblhighestvalue.setBorder(BorderFactory.createLineBorder(Color.black));
 
 		JLabel lbllowestvalue = new JLabel("<html>Lowest<br>value:</html>");
 		lbllowestvalue.setBounds(345, 87, 133, 61);
 		mainPanel.add(lbllowestvalue);
-		lbllowestvalue.setHorizontalAlignment(SwingConstants.LEFT);
+		lbllowestvalue.setHorizontalAlignment(SwingConstants.CENTER);
+		lbllowestvalue.setVerticalAlignment(SwingConstants.CENTER);
 		lbllowestvalue.setFont(ServerConstants.COURIERFONT);
 		lbllowestvalue.setBorder(BorderFactory.createLineBorder(Color.black));
 		lbllowestvalue.setOpaque(true);
-		lbllowestvalue.setBackground(ServerConstants.SKIN);
+		lbllowestvalue.setBackground(ServerConstants.LIGHTRED);
 
 		JLabel lblfrequencyhz = new JLabel("<html>Frequency<br>(Hz):</html>");
 		lblfrequencyhz.setBounds(345, 161, 133, 61);
 		mainPanel.add(lblfrequencyhz);
-		lblfrequencyhz.setHorizontalAlignment(SwingConstants.LEFT);
+		lblfrequencyhz.setHorizontalAlignment(SwingConstants.CENTER);
+		lblfrequencyhz.setVerticalAlignment(SwingConstants.CENTER);
 		lblfrequencyhz.setFont(ServerConstants.COURIERFONT);
 		lblfrequencyhz.setBorder(BorderFactory.createLineBorder(Color.black));
 		lblfrequencyhz.setBackground(ServerConstants.LIGHTBLUE);
@@ -127,7 +130,7 @@ public class ServerUi {
 		textHighest.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		textHighest.setBounds(490, 13, 126, 61);
 		mainPanel.add(textHighest);
-		textHighest.setBackground(ServerConstants.SKIN);
+		textHighest.setBackground(ServerConstants.LIGHTRED);
 		textHighest.setFont(ServerConstants.COURIERFONT);
 		textHighest.setBorder(BorderFactory.createLineBorder(Color.black));
 
@@ -141,7 +144,7 @@ public class ServerUi {
 		JTextPane textFrequencyHZ = new JTextPane();
 		textFrequencyHZ.setBounds(490, 161, 126, 61);
 		mainPanel.add(textFrequencyHZ);
-		textFrequencyHZ.setBackground(ServerConstants.SKIN);
+		textFrequencyHZ.setBackground(ServerConstants.LIGHTRED);
 		textFrequencyHZ.setFont(ServerConstants.COURIERFONT);
 		textFrequencyHZ.setBorder(BorderFactory.createLineBorder(Color.black));
 
