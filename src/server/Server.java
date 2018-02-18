@@ -1,13 +1,12 @@
+package server;
 
 import java.io.*;
 import java.net.*;
 
-
-
 public class Server {
 	public static void main(String args[]) {
-	
-		Server server = new Server(  ServerConstants.PORT_NUMBER );
+
+		Server server = new Server(ServerConstants.PORT_NUMBER);
 		server.startServer();
 	}
 
@@ -15,21 +14,21 @@ public class Server {
 	Socket clientSocket = null;
 	int port;
 	BufferedReader in;
-     PrintStream out;
+	PrintStream out;
 
-	public Server( int port ) {
+	public Server(int port) {
 		this.port = port;
 	}
 
 	public void stopServer() {
-		System.out.println( "Server cleaning up." );
+		System.out.println("Server cleaning up.");
 		try {
 			ServerService.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		System.exit(0);
 	}
 
@@ -37,33 +36,27 @@ public class Server {
 
 		try {
 			ServerService = new ServerSocket(port);
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			System.out.println(e);
-		}   
+		}
 
-		System.out.println( "Server is ready..." );
+		System.out.println("Server is ready...");
 
-
-		while ( true ) {
+		while (true) {
 			try {
 				clientSocket = ServerService.accept();
-				  in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-		           out = new PrintStream(clientSocket.getOutputStream());
-		           String  line ;
-		           while ((  line = in.readLine()) !=null) {
-		        	   	 
-		             out.println(line); 
-		             System.out.println(line);
-		           }
-		           
-			}   
-			catch (IOException e) {
+				in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+				out = new PrintStream(clientSocket.getOutputStream());
+				String line;
+				while ((line = in.readLine()) != null) {
+
+					out.println(line);
+					System.out.println(line);
+				}
+
+			} catch (IOException e) {
 				System.out.println(e);
 			}
 		}
 	}
 }
-
-
-	

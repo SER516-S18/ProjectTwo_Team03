@@ -6,7 +6,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
-import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -54,7 +53,7 @@ public class ClientUi {
 	private void initialize(){
 		clientFrame = new JFrame();
 		clientFrame.getContentPane().setBackground(ClientConstants.BLUE);
-		clientFrame.setTitle("Server");
+		clientFrame.setTitle("Client");
 		clientFrame.setBounds(100, 100, 800, 715);
 		clientFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		clientFrame.getContentPane().setLayout(null);
@@ -68,7 +67,7 @@ public class ClientUi {
 			}
 			
 		});
-		btnStartStopButton.setFont(ClientConstants.F1);
+		btnStartStopButton.setFont(ClientConstants.COURIER_FONT);
 		btnStartStopButton.setBounds(580, 13, 190, 34);
 		btnStartStopButton.setBorder(BorderFactory.createLineBorder(Color.black));
 		clientFrame.getContentPane().add(btnStartStopButton);
@@ -84,7 +83,7 @@ public class ClientUi {
 		textGraph.setBounds(22, 13, 440, 440);
 		panel.add(textGraph);
 		textGraph.setBackground(ClientConstants.LIGHT_RED);
-		textGraph.setFont(ClientConstants.F1);
+		textGraph.setFont(ClientConstants.COURIER_FONT);
 		textGraph.setBorder(BorderFactory.createLineBorder(Color.black));
 		
 		JLabel lblHighValue = new JLabel("<html>Highest<br>value:</html>");
@@ -92,7 +91,7 @@ public class ClientUi {
 		panel.add(lblHighValue);
 		lblHighValue.setBackground(ClientConstants.LIGHT_BLUE);
 		lblHighValue.setOpaque(true);
-		lblHighValue.setFont(ClientConstants.F1);
+		lblHighValue.setFont(ClientConstants.COURIER_FONT);
 		lblHighValue.setBorder(BorderFactory.createLineBorder(Color.black));
 		lblHighValue.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHighValue.setVerticalAlignment(SwingConstants.CENTER);
@@ -100,7 +99,7 @@ public class ClientUi {
 		JLabel lblLowValue = new JLabel("<html>Lowest<br>value:</html>");
 		lblLowValue.setBounds(470, 103, 133, 80);
 		panel.add(lblLowValue);
-		lblLowValue.setFont(ClientConstants.F1);
+		lblLowValue.setFont(ClientConstants.COURIER_FONT);
 		lblLowValue.setBorder(BorderFactory.createLineBorder(Color.black));
 		lblLowValue.setOpaque(true);
 		lblLowValue.setBackground(ClientConstants.LIGHT_RED);
@@ -112,7 +111,7 @@ public class ClientUi {
 		panel.add(lblAverage);
 		lblAverage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLowValue.setVerticalAlignment(SwingConstants.CENTER);
-		lblAverage.setFont(ClientConstants.F1);
+		lblAverage.setFont(ClientConstants.COURIER_FONT);
 		lblAverage.setBorder(BorderFactory.createLineBorder(Color.black));
 		lblAverage.setBackground(ClientConstants.LIGHT_BLUE);
 		lblAverage.setOpaque(true);
@@ -123,7 +122,7 @@ public class ClientUi {
 		panel.add(lblChannels);
 		lblChannels.setHorizontalAlignment(SwingConstants.CENTER);
 		lblChannels.setVerticalAlignment(SwingConstants.CENTER);
-		lblChannels.setFont(ClientConstants.F1);
+		lblChannels.setFont(ClientConstants.COURIER_FONT);
 		lblChannels.setBorder(BorderFactory.createLineBorder(Color.black));
 		lblChannels.setBackground(ClientConstants.LIGHT_RED);
 		lblChannels.setOpaque(true);
@@ -135,7 +134,7 @@ public class ClientUi {
 		panel.add(lblFrequency);
 		lblFrequency.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFrequency.setVerticalAlignment(SwingConstants.CENTER);
-		lblFrequency.setFont(ClientConstants.F1);
+		lblFrequency.setFont(ClientConstants.COURIER_FONT);
 		lblFrequency.setBorder(BorderFactory.createLineBorder(Color.black));
 		lblFrequency.setBackground(ClientConstants.LIGHT_BLUE);
 		lblFrequency.setOpaque(true);
@@ -147,7 +146,7 @@ public class ClientUi {
 		panel.add(textHighValue);
 		textHighValue.setEditable(false);
 		textHighValue.setBackground(ClientConstants.LIGHT_RED);
-		textHighValue.setFont(ClientConstants.F1);
+		textHighValue.setFont(ClientConstants.COURIER_FONT);
 		textHighValue.setBorder(BorderFactory.createLineBorder(Color.black));
 		
 		JTextPane textLowValue = new JTextPane();
@@ -155,7 +154,7 @@ public class ClientUi {
 		panel.add(textLowValue);
 		textLowValue.setEditable(false);
 		textLowValue.setBackground(ClientConstants.LIGHT_BLUE);
-		textLowValue.setFont(ClientConstants.F1);
+		textLowValue.setFont(ClientConstants.COURIER_FONT);
 		textLowValue.setBorder(BorderFactory.createLineBorder(Color.black));
 		
 		JTextPane textAvg = new JTextPane(); 
@@ -163,7 +162,7 @@ public class ClientUi {
 		panel.add(textAvg);
 		textAvg.setEditable(false);
 		textAvg.setBackground(ClientConstants.LIGHT_RED);
-		textAvg.setFont(ClientConstants.F1);
+		textAvg.setFont(ClientConstants.COURIER_FONT);
 		textAvg.setBorder(BorderFactory.createLineBorder(Color.black));
 		
 		String[] channels = { "1", "2", "3", "4", "5" };
@@ -174,7 +173,7 @@ public class ClientUi {
 		panel.add(channelDropDown);
 		channelDropDown.setBackground(ClientConstants.LIGHT_BLUE);
 		((JLabel)channelDropDown.getRenderer()).setHorizontalAlignment(JLabel.RIGHT);
-		channelDropDown.setFont(ClientConstants.F1);
+		channelDropDown.setFont(ClientConstants.COURIER_FONT);
 		channelDropDown.setBorder(BorderFactory.createLineBorder(Color.black));
 		channelDropDown.addActionListener(new ActionListener() {
 			
@@ -188,13 +187,13 @@ public class ClientUi {
 		textFrequency.setBounds(615, 373, 126, 80);
 		panel.add(textFrequency);
 		textFrequency.setBackground(ClientConstants.LIGHT_RED);
-		textFrequency.setFont(ClientConstants.F1);
+		textFrequency.setFont(ClientConstants.COURIER_FONT);
 		textFrequency.setBorder(BorderFactory.createLineBorder(Color.black));
 		
 		
 		JTextPane textConsole = new JTextPane();
 		textConsole.setText("Console:");
-		textConsole.setFont(ClientConstants.F1);
+		textConsole.setFont(ClientConstants.COURIER_FONT);
 		textConsole.setBackground(new Color(211, 211, 211));
 		textConsole.setBounds(10, 550, 760, 100);
 		textConsole.setBorder(BorderFactory.createLineBorder(Color.black));
