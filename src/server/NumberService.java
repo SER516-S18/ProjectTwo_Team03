@@ -15,7 +15,9 @@ public class NumberService {
 	public synchronized int getNumber(int channelID) throws NoSuchChannel {
 		Channel chan = this.channels.get(new Integer(channelID));
 		if (chan == null) {
+			ServerConsole.getInstance().print("Invalid Channel Number");
 			throw new NoSuchChannel();
+
 		}
 		return chan.next();
 	}

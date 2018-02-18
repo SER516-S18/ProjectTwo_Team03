@@ -132,11 +132,15 @@ public class ServerUi {
 		textPane_3.setBorder(BorderFactory.createLineBorder(Color.black));
 
 		JTextPane textConsole = new JTextPane();
-		textConsole.setText("Console:");
+
+		// textConsole.setText("Console:");
 		textConsole.setFont(ServerConstants.COURIERFONT);
 		textConsole.setBackground(ServerConstants.CONSOLECOLOR);
 		textConsole.setBounds(12, 390, 628, 138);
 		textConsole.setBorder(BorderFactory.createLineBorder(Color.black));
+		ServerConsole sc = ServerConsole.getInstance();
+		sc.setJtextPane(textConsole);
+		sc.print("hello");
 		serverFrame.getContentPane().add(textConsole);
 	}
 }
