@@ -1,5 +1,7 @@
 package client;
 
-public class ClientConstants extends Constants{
+import utility.Constants;
+
+public class ClientConstants extends Constants {
 
 }
