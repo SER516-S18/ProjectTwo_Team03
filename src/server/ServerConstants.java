@@ -13,4 +13,6 @@ public class ServerConstants {
 	public static final Color CONSOLECOLOR = new Color(211, 211, 211);
 	public static final Color MAINPANELCOLOR = new Color(220, 220, 220);
 	public static final Font COURIERFONT = new Font("Courier New", Font.PLAIN, 18);
+	public static final Font BLINKINGTEXTFONT = new Font("Courier New", Font.BOLD, 20);
+
 }
