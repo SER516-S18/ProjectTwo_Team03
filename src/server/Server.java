@@ -53,10 +53,6 @@ public class Server implements Runnable {
 
 	}
 
-	private synchronized boolean hasStopped() {
-		return this.isStopped;
-	}
-
 	public synchronized void stop() {
 
 		this.isStopped = true;
