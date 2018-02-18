@@ -1,4 +1,6 @@
-import java.util.*;
+package server;
+
+import java.util.HashMap;
 
 public class NumberService {
 
@@ -13,7 +15,8 @@ public class NumberService {
 	public synchronized int getNumber(int channelID) throws NoSuchChannel {
 		Channel chan = this.channels.get(new Integer(channelID));
 		if (chan == null) {
-			throw new NoSuchChannel();
+			throw new NoSuchChannel("Invalid Channel Number");
+
 		}
 		return chan.next();
 	}

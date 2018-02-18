@@ -1,6 +1,8 @@
-import org.junit.*;
-import static org.junit.Assert.*;
-import java.util.*;
+package server;
+
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
 
 public class NumberServiceTests {
 
