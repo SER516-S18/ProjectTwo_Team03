@@ -3,7 +3,7 @@ package client;
 import java.awt.Color;
 import java.awt.Font;
 
-public class ClientConstants {
+public class ClientConstants extends Constants{
 
 	public static final int PORT_NUMBER = 1516;
 	public static final Color LIGHT_BLUE = new Color(228, 233, 239);

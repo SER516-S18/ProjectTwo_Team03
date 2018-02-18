@@ -3,7 +3,7 @@ package server;
 import java.awt.Color;
 import java.awt.Font;
 
-public class ServerConstants {
+public class ServerConstants extends Constants{
 
 	public static final int PORT_NUMBER = 1516;
 	public static final Color LIGHTBLUE = new Color(230, 230, 250);
