@@ -7,33 +7,17 @@ import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server {
-	public static void main(String args[]) {
-
-		Server server = new Server(ServerConstants.PORT_NUMBER);
-		server.startServer();
-	}
+public class Server implements Runnable {
 
 	ServerSocket ServerService = null;
 	Socket clientSocket = null;
 	int port;
 	BufferedReader in;
 	PrintStream out;
+	boolean isStopped;
 
 	public Server(int port) {
 		this.port = port;
-	}
-
-	public void stopServer() {
-		System.out.println("Server cleaning up.");
-		try {
-			ServerService.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		System.exit(0);
 	}
 
 	public void startServer() {
@@ -43,10 +27,8 @@ public class Server {
 		} catch (IOException e) {
 			System.out.println(e);
 		}
-
-		System.out.println("Server is ready...");
-
-		while (true) {
+		ServerConsole.getInstance().print("Server is started");
+		while (hasStopped()) {
 			try {
 				clientSocket = ServerService.accept();
 				in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
@@ -59,8 +41,39 @@ public class Server {
 				}
 
 			} catch (IOException e) {
-				System.out.println(e);
+				e.printStackTrace();
+				ServerConsole.getInstance().print(e.getMessage());
 			}
 		}
 	}
+
+	@Override
+	public void run() {
+		startServer();
+
+	}
+
+	private synchronized boolean hasStopped() {
+		return this.isStopped;
+	}
+
+	public synchronized void stop() {
+
+		this.isStopped = true;
+		try {
+			ServerConsole.getInstance().print("Server is Stopped");
+			this.ServerService.close();
+		} catch (IOException e) {
+			ServerConsole.getInstance().print(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	public static Server createServerThread() {
+		Server server = new Server(ServerConstants.PORT_NUMBER);
+		new Thread(server).start();
+		return server;
+
+	}
+
 }

@@ -24,6 +24,7 @@ import javax.swing.border.LineBorder;
 public class ServerUi {
 	private JFrame serverFrame;
 	private boolean serverRunning = false;
+	private Server serverThread;
 
 	/**
 	 * Launch the application.
@@ -34,11 +35,21 @@ public class ServerUi {
 				try {
 					ServerUi serverUi = new ServerUi();
 					serverUi.serverFrame.setVisible(true);
+
+					// server.startServer();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+	}
+
+	public void setServerThread(Server serverThread) {
+		this.serverThread = serverThread;
+	}
+
+	public Server getServerThread() {
+		return this.serverThread;
 	}
 
 	/**
@@ -72,7 +83,7 @@ public class ServerUi {
 		display.setBounds(22, 13, 311, 296);
 		display.setLayout(new GridBagLayout());
 		mainPanel.add(display);
-		
+
 		BlinkingText T = new BlinkingText();
 		T.setFont(ServerConstants.BLINKINGTEXTFONT);
 		display.add(T);
@@ -82,11 +93,13 @@ public class ServerUi {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				serverRunning = !serverRunning;
-				if(serverRunning == true){
+				if (serverRunning == true) {
 					T.start();
-				}
-				else{
+					setServerThread(Server.createServerThread());
+				} else {
 					T.stop();
+					getServerThread().stop();
+
 				}
 			}
 		});
@@ -94,7 +107,6 @@ public class ServerUi {
 		btnNewButton.setBounds(448, 13, 192, 34);
 		btnNewButton.setBorder(BorderFactory.createLineBorder(Color.black));
 		serverFrame.getContentPane().add(btnNewButton);
-
 
 		JLabel lblhighestvalue = new JLabel("<html>Highest<br>value:</html>");
 		lblhighestvalue.setBounds(345, 13, 133, 61);
