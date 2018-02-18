@@ -41,7 +41,6 @@ public class Server implements Runnable {
 				}
 
 			} catch (IOException e) {
-				e.printStackTrace();
 				ServerConsole.getInstance().print(e.getMessage());
 			}
 		}
@@ -65,7 +64,6 @@ public class Server implements Runnable {
 			this.ServerService.close();
 		} catch (IOException e) {
 			ServerConsole.getInstance().print(e.getMessage());
-			e.printStackTrace();
 		}
 	}
 
