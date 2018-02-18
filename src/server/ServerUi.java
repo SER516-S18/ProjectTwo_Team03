@@ -3,6 +3,7 @@ package server;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,6 +23,7 @@ import javax.swing.border.LineBorder;
 
 public class ServerUi {
 	private JFrame serverFrame;
+	private boolean serverRunning = false;
 
 	/**
 	 * Launch the application.
@@ -57,10 +59,35 @@ public class ServerUi {
 		serverFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		serverFrame.getContentPane().setLayout(null);
 
+		JPanel mainPanel = new JPanel();
+		mainPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		mainPanel.setBackground(ServerConstants.MAINPANELCOLOR);
+		mainPanel.setBounds(12, 59, 628, 323);
+		serverFrame.getContentPane().add(mainPanel);
+		mainPanel.setLayout(null);
+
+		JPanel display = new JPanel();
+		display.setBorder(BorderFactory.createLineBorder(Color.black));
+		display.setBackground(ServerConstants.SKIN);
+		display.setBounds(22, 13, 311, 296);
+		display.setLayout(new GridBagLayout());
+		mainPanel.add(display);
+		
+		BlinkingText T = new BlinkingText();
+		T.setFont(ServerConstants.BLINKINGTEXTFONT);
+		display.add(T);
+
 		JButton btnNewButton = new JButton("start / stop");
 		btnNewButton.setBackground(ServerConstants.SKIN);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				serverRunning = !serverRunning;
+				if(serverRunning == true){
+					T.start();
+				}
+				else{
+					T.stop();
+				}
 			}
 		});
 		btnNewButton.setFont(ServerConstants.COURIERFONT);
@@ -68,12 +95,6 @@ public class ServerUi {
 		btnNewButton.setBorder(BorderFactory.createLineBorder(Color.black));
 		serverFrame.getContentPane().add(btnNewButton);
 
-		JPanel mainPanel = new JPanel();
-		mainPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		mainPanel.setBackground(ServerConstants.MAINPANELCOLOR);
-		mainPanel.setBounds(12, 59, 628, 323);
-		serverFrame.getContentPane().add(mainPanel);
-		mainPanel.setLayout(null);
 
 		JLabel lblhighestvalue = new JLabel("<html>Highest<br>value:</html>");
 		lblhighestvalue.setBounds(345, 13, 133, 61);
@@ -123,13 +144,6 @@ public class ServerUi {
 		textFrequencyHZ.setBackground(ServerConstants.SKIN);
 		textFrequencyHZ.setFont(ServerConstants.COURIERFONT);
 		textFrequencyHZ.setBorder(BorderFactory.createLineBorder(Color.black));
-
-		JTextPane textPane_3 = new JTextPane();
-		textPane_3.setBounds(22, 13, 311, 296);
-		mainPanel.add(textPane_3);
-		textPane_3.setBackground(ServerConstants.SKIN);
-		textPane_3.setFont(ServerConstants.COURIERFONT);
-		textPane_3.setBorder(BorderFactory.createLineBorder(Color.black));
 
 		JTextPane textConsole = new JTextPane();
 		textConsole.setFont(ServerConstants.COURIERFONT);
