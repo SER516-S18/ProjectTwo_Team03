@@ -11,11 +11,18 @@ import server.ServerConstants;
 import utility.Constants;
 
 public class Client {
+	Socket clientSocket = null;
+	DataOutputStream output = null;
+	BufferedReader input = null;
+
 	public static void main(String[] args) {
 
-		Socket clientSocket = null;
-		DataOutputStream output = null;
-		BufferedReader input = null;
+		Client client =new Client();
+
+		client.start(2);
+	}
+
+	public void start(Integer channels){
 
 		try {
 
@@ -28,29 +35,31 @@ public class Client {
 		} catch (UnknownHostException e) {
 			System.err.println("Unknown host: " + ClientConstants.HOSTNAME);
 		} catch (IOException e) {
-			System.err.println("Connection Exception " + ClientConstants.HOSTNAME);
+			System.err.println("Connection Exception " + ClientConstants.HOSTNAME + "error: " + e.toString());
 		}
 
 		try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-			System.out.print("Enter S to start the client: ");
-			String userInp = br.readLine();
+//			System.out.print("Enter S to start the client: ");
+//			String userInp = br.readLine();
 
-			output.writeBytes(userInp + "\n");
-			int n = Integer.parseInt(userInp);
+//			output.writeBytes(userInp + "\n");
+			output.writeBytes("\nchannels:"+ channels.toString());
 
-			while (true) {
-				if (n == 0 || n == -1) {
-					break;
-				}
-				String responseLine = input.readLine();
-				System.out.println(responseLine);
-			}
+////			int n = Integer.parseInt(userInp);
+//			int n = Integer.parseInt(channels.toString());
+//
+//			while (true) {
+//				if (n == 0 || n == -1) {
+//					break;
+//				}
+//				String responseLine = input.readLine();
+//				System.out.println(responseLine);
+//			}
 
-			input.close();
-			output.close();
-			clientSocket.close();
+
+
 
 		} catch (UnknownHostException e) {
 			System.err.println("Trying to connect to unknown host: " + e);
@@ -60,8 +69,29 @@ public class Client {
 
 	}
 
-	public void close() {
+	public void updateChannels(Integer channels) throws IOException {
 
+		output.writeBytes("channels:"+ channels.toString() + "\n");
+
+		int n = Integer.parseInt(channels.toString());
+
+		while (true) {
+			if (n == 0 || n == -1) {
+				break;
+			}
+			String responseLine = input.readLine();
+			System.out.println(responseLine);
+		}
+
+
+	}
+
+
+	public void stop() throws IOException {
+
+		input.close();
+		output.close();
+		clientSocket.close();
 	}
 
 }

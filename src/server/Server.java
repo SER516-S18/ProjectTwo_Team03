@@ -15,6 +15,7 @@ public class Server implements Runnable {
 	BufferedReader in;
 	PrintStream out;
 	boolean isStopped;
+	Integer channels;
 
 	public Server(int port) {
 		this.port = port;
@@ -23,7 +24,7 @@ public class Server implements Runnable {
 	public void startServer() {
 
 		try {
-			ServerService = new ServerSocket(port);
+			ServerService = new ServerSocket(this.port);
 		} catch (IOException e) {
 			System.out.println(e);
 		}
@@ -35,12 +36,18 @@ public class Server implements Runnable {
 				out = new PrintStream(clientSocket.getOutputStream());
 				String line;
 				while ((line = in.readLine()) != null) {
+					 if(line.contains("stop")==true){
+						this.stop();
 
+					}else if(line.contains("channels")==true){
+						this.channels=Integer.parseInt(line.split(":")[1]);
+
+					}
 					out.println(line);
 					System.out.println(line);
 				}
 
-			} catch (IOException e) {			
+			} catch (IOException e) {
 				ServerConsole.getInstance().print(e.getMessage());
 			}
 		}

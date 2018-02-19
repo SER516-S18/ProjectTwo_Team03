@@ -14,6 +14,7 @@ import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Component;
+import java.io.IOException;
 
 
 /**
@@ -23,6 +24,7 @@ import java.awt.Component;
 
 public class ClientUi {
 	private JFrame clientFrame;
+	private  Client client=null;
 	
 	/**
 	 * Launch the application.
@@ -61,7 +63,11 @@ public class ClientUi {
 		btnStartStopButton.setBackground(ClientConstants.LIGHTRED);
 		btnStartStopButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			
+			if(client==null){
+				client =new Client();
+				client.start(ClientConstants.CHANNELS);
+			}
+
 			System.out.println("Start/Stop");
 			}
 			
@@ -168,6 +174,7 @@ public class ClientUi {
 
 		JComboBox<String> channelDropDown = new JComboBox<String>(channels);
 		channelDropDown.setSelectedIndex(1);
+		ClientConstants.CHANNELS=Integer.parseInt( channelDropDown.getSelectedItem().toString());
 		channelDropDown.setBounds(615,300,126,40);
 		panel.add(channelDropDown);
 		channelDropDown.setBackground(ClientConstants.LIGHTBLUE);
@@ -178,7 +185,16 @@ public class ClientUi {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			System.out.print(channelDropDown.getSelectedItem());				
+
+				System.out.print(channelDropDown.getSelectedItem());
+				ClientConstants.CHANNELS=Integer.parseInt( channelDropDown.getSelectedItem().toString());
+				if(client!=null){
+					try {
+						client.updateChannels(ClientConstants.CHANNELS);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
 			}
 		});
 		
