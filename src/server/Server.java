@@ -40,7 +40,7 @@ public class Server implements Runnable {
 					System.out.println(line);
 				}
 
-			} catch (IOException e) {
+			} catch (IOException e) {			
 				ServerConsole.getInstance().print(e.getMessage());
 			}
 		}
@@ -63,7 +63,7 @@ public class Server implements Runnable {
 			ServerConsole.getInstance().print("Server is Stopped");
 			this.ServerService.close();
 		} catch (IOException e) {
-			ServerConsole.getInstance().print(e.getMessage());
+			ServerConsole.getInstance().print(e.getMessage());			
 		}
 	}
 
