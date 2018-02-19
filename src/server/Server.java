@@ -41,7 +41,7 @@ public class Server implements Runnable {
 
 					}else if(line.contains("channels")==true){
 						this.channels=Integer.parseInt(line.split(":")[1]);
-
+						 ServerConsole.getInstance().print("channel count is "+ this.channels.toString());
 					}
 					out.println(line);
 					System.out.println(line);

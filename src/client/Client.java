@@ -26,7 +26,7 @@ public class Client {
 	public void start(Integer channels){
 
 		try {
-
+			isRunning=true;
 			clientSocket = new Socket(Constants.HOSTNAME, ServerConstants.PORT_NUMBER);
 			System.out.println("Connected");
 			input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
@@ -89,10 +89,11 @@ public class Client {
 
 
 	public void stop() throws IOException {
-
+		isRunning=false;
 		input.close();
 		output.close();
 		clientSocket.close();
+
 	}
 
 }
