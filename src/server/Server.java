@@ -16,37 +16,52 @@ public class Server implements Runnable {
 	PrintStream out;
 	boolean isStopped;
 	Integer channels;
+	NumberService numberService;
 
 	public Server(int port) {
 		this.port = port;
+		this.numberService = new NumberService();
 	}
 
 	public void startServer() {
-
+		int channel;
+		int response;
+		String request;
 		try {
 			ServerService = new ServerSocket(this.port);
 		} catch (IOException e) {
 			System.out.println(e);
 		}
 		ServerConsole.getInstance().print("Server is started");
-		while (hasStopped()==false) {
+		while (!hasStopped()) {
 			try {
 				clientSocket = ServerService.accept();
 				in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 				out = new PrintStream(clientSocket.getOutputStream());
-				String line;
-				while ((line = in.readLine()) != null) {
-					 if(line.contains("stop")==true){
+				while ((request = in.readLine()) != null) {
+					 if (request.contains("stop")) {
+					 	out.println(request);
+					 	ServerConsole.getInstance().print("Closing connection to client.");
+					 	clientSocket.close();
 						this.stop();
-
-					}else if(line.contains("channels")==true){
-						this.channels=Integer.parseInt(line.split(":")[1]);
-						 ServerConsole.getInstance().print("channel count is "+ this.channels.toString());
+					} else if (request.contains("new")) {
+						int id = this.numberService.newChannel(ServerConstants.DEFAULT_MIN, ServerConstants.DEFAULT_MAX);
+						out.println(new Integer(id).toString());
+					} else if (request.contains("channels")){
+						channel = Integer.parseInt(request.split(":")[1]);
+						ServerConsole.getInstance().print("received request for channel: "+ new Integer(channel).toString());
+						try {
+							response = this.numberService.getNumber(channel);
+						} catch (NoSuchChannel e) {
+							out.println("No such channeld: " + new Integer(channel).toString());
+							continue;
+						}
+						out.println(new Integer(response).toString());
+						ServerConsole.getInstance().print("Responded to request on channel " + new Integer(channel).toString() + " with value " + new Integer(response).toString());
+					} else {
+						ServerConsole.getInstance().print("Couldn't understand request: " + request);
 					}
-					out.println(line);
-					System.out.println(line);
 				}
-
 			} catch (IOException e) {
 				ServerConsole.getInstance().print(e.getMessage());
 			}

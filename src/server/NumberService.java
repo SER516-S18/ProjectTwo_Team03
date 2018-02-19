@@ -10,6 +10,9 @@ public class NumberService {
 	public NumberService() {
 		this.channels = new HashMap<Integer, Channel>();
 		this.serial = 0;
+		for (int i = 0; i < 5; i++) {
+			this.newChannel(ServerConstants.DEFAULT_MIN, ServerConstants.DEFAULT_MAX);
+		}
 	}
 
 	public synchronized int getNumber(int channelID) throws NoSuchChannel {
