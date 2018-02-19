@@ -12,7 +12,7 @@ public class NumberServiceTests {
 	}
 
 	@Test
-	public void testCreateChannel() {
+	public void testCreateChannel() throws Exception {
 		NumberService ns = new NumberService();
 		int min = 1000;
 		int max = 1050;
@@ -21,13 +21,13 @@ public class NumberServiceTests {
 		try {
 			n = ns.getNumber(handle);
 		} catch (Exception e) {
-			assertTrue(e.toString(), false);
+			throw e;
 		}
 		assertTrue(new Integer(n).toString(), n >= min && n <= max);
 	}
 
 	@Test
-	public void testMissingChannel() {
+	public void testMissingChannel() throws Exception {
 		NumberService ns = new NumberService();
 		try {
 			ns.getNumber(1);
@@ -35,7 +35,7 @@ public class NumberServiceTests {
 			if (e instanceof NoSuchChannel) {
 				return;
 			}
-			assertTrue(e.toString(), false);
+			throw e;
 		}
 		assertTrue("Failed to raise NoSuchChannel exception", false);
 	}

@@ -1,3 +1,5 @@
 #/usr/bin/env bash
 
-find bin -name *.class -delete
+rm -rf bin/utility
+rm -rf bin/client
+rm -rf bin/server
