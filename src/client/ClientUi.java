@@ -6,6 +6,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
+//import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -15,6 +16,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Component;
 import java.io.IOException;
+//import java.util.ArrayList;
+//import java.util.List;
+//import java.util.Random;
 
 
 /**
@@ -84,12 +88,21 @@ public class ClientUi {
 		clientFrame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JTextPane textGraph = new JTextPane();
-		textGraph.setBounds(22, 13, 440, 440);
-		panel.add(textGraph);
-		textGraph.setBackground(ClientConstants.LIGHTRED);
-		textGraph.setFont(ClientConstants.COURIERFONT);
-		textGraph.setBorder(BorderFactory.createLineBorder(Color.black));
+		JPanel graph = new JPanel();
+		graph.setBounds(22, 13, 440, 440);
+		panel.add(graph);
+		graph.setBackground(ClientConstants.LIGHTRED);
+		graph.setBorder(BorderFactory.createLineBorder(Color.black));
+		
+//		List<Integer> values = new ArrayList<Integer>();
+//	    Random random = new Random();
+//	    int maxDataPoints = 16;
+//	    int maxScore = 20;
+//	    for (int i = 0; i < maxDataPoints ; i++) {
+//	       values.add(random.nextInt(maxScore));
+//	    }
+//	    DisplayGraph g = new DisplayGraph(values);
+//	    graph.add(g,BorderLayout.CENTER);
 		
 		JLabel lblHighValue = new JLabel("<html>Highest<br>value:</html>");
 		lblHighValue.setBounds(470, 13, 133, 80);
