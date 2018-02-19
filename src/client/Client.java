@@ -14,6 +14,7 @@ public class Client {
 	Socket clientSocket = null;
 	DataOutputStream output = null;
 	BufferedReader input = null;
+	Boolean isRunning=false;
 
 	public static void main(String[] args) {
 
@@ -45,7 +46,7 @@ public class Client {
 //			String userInp = br.readLine();
 
 //			output.writeBytes(userInp + "\n");
-			output.writeBytes("\nchannels:"+ channels.toString());
+			output.writeBytes("channels:"+ channels.toString()+"\n");
 
 ////			int n = Integer.parseInt(userInp);
 //			int n = Integer.parseInt(channels.toString());
@@ -73,15 +74,15 @@ public class Client {
 
 		output.writeBytes("channels:"+ channels.toString() + "\n");
 
-		int n = Integer.parseInt(channels.toString());
-
-		while (true) {
-			if (n == 0 || n == -1) {
-				break;
-			}
-			String responseLine = input.readLine();
-			System.out.println(responseLine);
-		}
+//		int n = Integer.parseInt(channels.toString());
+//
+//		while (true) {
+//			if (n == 0 || n == -1) {
+//				break;
+//			}
+//			String responseLine = input.readLine();
+//			System.out.println(responseLine);
+//		}
 
 
 	}

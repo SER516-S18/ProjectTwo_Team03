@@ -29,7 +29,7 @@ public class Server implements Runnable {
 			System.out.println(e);
 		}
 		ServerConsole.getInstance().print("Server is started");
-		while (hasStopped()) {
+		while (hasStopped()==false) {
 			try {
 				clientSocket = ServerService.accept();
 				in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
