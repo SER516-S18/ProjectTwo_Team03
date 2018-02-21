@@ -87,6 +87,29 @@ public class ServerUi {
 		BlinkingText T = new BlinkingText();
 		T.setFont(ServerConstants.BLINKINGTEXTFONT);
 		display.add(T);
+		
+		
+		JTextPane textHighest = new JTextPane();
+		textHighest.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		textHighest.setBounds(490, 13, 126, 61);
+		mainPanel.add(textHighest);
+		textHighest.setBackground(ServerConstants.LIGHTRED);
+		textHighest.setFont(ServerConstants.COURIERFONT);
+		textHighest.setBorder(BorderFactory.createLineBorder(Color.black));
+
+		JTextPane textLowest = new JTextPane();
+		textLowest.setBounds(490, 87, 126, 61);
+		mainPanel.add(textLowest);
+		textLowest.setBackground(ServerConstants.LIGHTBLUE);
+		textLowest.setFont(ServerConstants.COURIERFONT);
+		textLowest.setBorder(BorderFactory.createLineBorder(Color.black));
+
+		JTextPane textFrequencyHZ = new JTextPane();
+		textFrequencyHZ.setBounds(490, 161, 126, 61);
+		mainPanel.add(textFrequencyHZ);
+		textFrequencyHZ.setBackground(ServerConstants.LIGHTRED);
+		textFrequencyHZ.setFont(ServerConstants.COURIERFONT);
+		textFrequencyHZ.setBorder(BorderFactory.createLineBorder(Color.black));
 
 		JButton btnNewButton = new JButton("Start / Stop");
 		btnNewButton.setBackground(ServerConstants.LIGHTRED);
@@ -95,6 +118,7 @@ public class ServerUi {
 				serverRunning = !serverRunning;
 				if (serverRunning == true) {
 					T.start();
+					TextInputs.SetInputs(textHighest.getText(), textLowest.getText(), textFrequencyHZ.getText());
 					setServerThread(Server.createServerThread());
 				} else {
 					T.stop();
@@ -137,28 +161,6 @@ public class ServerUi {
 		lblfrequencyhz.setBorder(BorderFactory.createLineBorder(Color.black));
 		lblfrequencyhz.setBackground(ServerConstants.LIGHTBLUE);
 		lblfrequencyhz.setOpaque(true);
-
-		JTextPane textHighest = new JTextPane();
-		textHighest.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		textHighest.setBounds(490, 13, 126, 61);
-		mainPanel.add(textHighest);
-		textHighest.setBackground(ServerConstants.LIGHTRED);
-		textHighest.setFont(ServerConstants.COURIERFONT);
-		textHighest.setBorder(BorderFactory.createLineBorder(Color.black));
-
-		JTextPane textLowest = new JTextPane();
-		textLowest.setBounds(490, 87, 126, 61);
-		mainPanel.add(textLowest);
-		textLowest.setBackground(ServerConstants.LIGHTBLUE);
-		textLowest.setFont(ServerConstants.COURIERFONT);
-		textLowest.setBorder(BorderFactory.createLineBorder(Color.black));
-
-		JTextPane textFrequencyHZ = new JTextPane();
-		textFrequencyHZ.setBounds(490, 161, 126, 61);
-		mainPanel.add(textFrequencyHZ);
-		textFrequencyHZ.setBackground(ServerConstants.LIGHTRED);
-		textFrequencyHZ.setFont(ServerConstants.COURIERFONT);
-		textFrequencyHZ.setBorder(BorderFactory.createLineBorder(Color.black));
 
 		JTextPane textConsole = new JTextPane();
 		textConsole.setFont(ServerConstants.COURIERFONT);
