@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.StringBuilder;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -46,7 +47,30 @@ public class Client {
 //			String userInp = br.readLine();
 
 //			output.writeBytes(userInp + "\n");
-			output.writeBytes("channels:"+ channels.toString()+"\n");
+
+			// request strings are space delimited structures.
+			// 	channel frequency min max
+			// For example, a channel of 4, with a frequency of 3 seconds and min of 100
+			// and max of 2000 is
+			// 	4 3 100 2000
+			//
+			// Responses are space delimited lists of numbers. So if the channel 5,
+			// you may receive:
+			//
+			// 46 72 3 18 110
+			StringBuilder request = new StringBuilder();
+			request.append(channels.toString()).append(" ") // channel
+					.append("2").append(" ") // frequency
+					.append("0").append(" ") // min
+					.append("100").append(" ") // max
+					.append("\n"); // required newline
+			output.writeBytes(request.toString());
+
+			System.out.println(input.readLine());
+			System.out.println(input.readLine());
+			System.out.println(input.readLine());
+			System.out.println("etc....you know what to do now.");
+			output.writeBytes("stop\n");
 
 ////			int n = Integer.parseInt(userInp);
 //			int n = Integer.parseInt(channels.toString());

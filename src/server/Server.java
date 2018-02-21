@@ -3,69 +3,94 @@ package server;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.lang.StringBuilder;
+import java.util.Random;
 
 public class Server implements Runnable {
 
-	ServerSocket ServerService = null;
-	Socket clientSocket = null;
-	int port;
-	BufferedReader in;
-	PrintStream out;
-	boolean isStopped;
-	Integer channels;
-	NumberService numberService;
+	private int port;
+	private volatile boolean running;
+	private NumberService numberService;
+	private Random rand;
 
 	public Server(int port) {
 		this.port = port;
-		this.numberService = new NumberService();
+		this.running = false;
+		this.rand = new Random();
 	}
 
 	public void startServer() {
 		int channel;
-		int response;
-		String request;
+		Socket request;
+		PrintWriter response;
+		ServerSocket server;
 		try {
-			ServerService = new ServerSocket(this.port);
-		} catch (IOException e) {
-			System.out.println(e);
+			server = new ServerSocket(this.port);
+		} catch (Exception e) {
+			ServerConsole.getInstance().print("Failed to start the server on port " + new Integer(this.port).toString());
+			ServerConsole.getInstance().print(e.toString());
+			return;
 		}
-		ServerConsole.getInstance().print("Server is started");
-		while (!hasStopped()) {
+		this.running = true;
+		ServerConsole.getInstance().print("Server is started on port " + new Integer(this.port).toString());
+		while (this.running) {
 			try {
-				clientSocket = ServerService.accept();
-				in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-				out = new PrintStream(clientSocket.getOutputStream());
-				while ((request = in.readLine()) != null) {
-					 if (request.contains("stop")) {
-					 	out.println(request);
-					 	ServerConsole.getInstance().print("Closing connection to client.");
-					 	clientSocket.close();
-						this.stop();
-					} else if (request.contains("new")) {
-						int id = this.numberService.newChannel(ServerConstants.DEFAULT_MIN, ServerConstants.DEFAULT_MAX);
-						out.println(new Integer(id).toString());
-					} else if (request.contains("channels")){
-						channel = Integer.parseInt(request.split(":")[1]);
-						ServerConsole.getInstance().print("received request for channel: "+ new Integer(channel).toString());
-						try {
-							response = this.numberService.getNumber(channel);
-						} catch (NoSuchChannel e) {
-							out.println("No such channeld: " + new Integer(channel).toString());
-							continue;
-						}
-						out.println(new Integer(response).toString());
-						ServerConsole.getInstance().print("Responded to request on channel " + new Integer(channel).toString() + " with value " + new Integer(response).toString());
-					} else {
-						ServerConsole.getInstance().print("Couldn't understand request: " + request);
-					}
+				request = server.accept();
+				response = new PrintWriter(request.getOutputStream(), true); // true for autoflush on println
+			} catch (Exception e) {
+				ServerConsole.getInstance().print("Failed to accept connection.");
+				continue;
+			}
+			try {
+				this.serviceClient(request, response);
+			} catch (Exception e) {
+				ServerConsole.getInstance().print("Failed to service client.");
+				ServerConsole.getInstance().print(e.toString());
+				try {
+					response.println("ERROR: " + e.toString());
+				} catch (Exception err) {
+					// give up trying to get the client feedback.
 				}
-			} catch (IOException e) {
-				ServerConsole.getInstance().print(e.getMessage());
+			} finally {
+				try {
+					request.close();
+				} catch (Exception e) {
+					ServerConsole.getInstance().print("Failed to close client connection.");
+				}
 			}
 		}
+		ServerConsole.getInstance().print("Server is Stopped");
+	}
+
+	private void serviceClient(Socket request, PrintWriter response) throws Exception {
+		BufferedReader in = new BufferedReader(new InputStreamReader(request.getInputStream()));
+		String[] requestbuf = in.readLine().split(" ");
+		int channel = Integer.parseInt(requestbuf[0]);
+		int frequency = Integer.parseInt(requestbuf[1]);
+		int min = Integer.parseInt(requestbuf[2]);
+		int max = Integer.parseInt(requestbuf[3]);
+
+		while (this.running) {
+			if (in.ready() && "stop".equals(in.readLine())) {
+				break;
+			}
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < channel; i++) {
+				sb.append(new Integer(this.rand.nextInt(max - min + 1) + min).toString());
+				if (i < channel - 1) {
+					// Don't have a trailing space on the last entry.
+					sb.append(" ");
+				}
+			}
+			String resp = sb.toString();
+			response.println(resp);
+			ServerConsole.getInstance().print("Sent response: " + resp);
+			Thread.sleep(frequency * 1000);
+		}
+		ServerConsole.getInstance().print("Stopping number server");
 	}
 
 	@Override
@@ -74,19 +99,8 @@ public class Server implements Runnable {
 
 	}
 
-	private synchronized boolean hasStopped() {
-		return this.isStopped;
-	}
-
 	public synchronized void stop() {
-
-		this.isStopped = true;
-		try {
-			ServerConsole.getInstance().print("Server is Stopped");
-			this.ServerService.close();
-		} catch (IOException e) {
-			ServerConsole.getInstance().print(e.getMessage());			
-		}
+		this.running = false;
 	}
 
 	public static Server createServerThread() {
