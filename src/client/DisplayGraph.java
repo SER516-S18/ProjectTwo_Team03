@@ -12,13 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 
-/**
- * @SER516 Project2_Team03
- * @Version 1.0
- */
 public class DisplayGraph extends JPanel {
-	private static final long serialVersionUID = 1L;
-	private static final int MAX_VALUE = 20;
+    private static final long serialVersionUID = 1L;
+    private static final int MAX_VALUE = 20;
     private static final int WIDTH = 430;
     private static final int HEIGHT = 430;
     private static final int BORDER_GAP = 10;
