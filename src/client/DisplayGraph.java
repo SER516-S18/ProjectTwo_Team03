@@ -29,7 +29,7 @@ public class DisplayGraph extends JPanel {
      * @param values
      */
     public DisplayGraph(List<Integer> values){
-    	this.values = values;
+        this.values = values;
     }
     
     @Override
