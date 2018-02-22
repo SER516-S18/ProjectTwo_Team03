@@ -4,11 +4,9 @@ import java.util.List;
 
 public class CalculateValues {
     
-     private List<Integer> values;
-    
-    /**
+    private List<Integer> values;
+    /*
      * Accepts the list of integers to be plotted.
-     * @param values
      */
     public int HighestValue(List<Integer> values){
     	this.values = values;
@@ -17,20 +15,19 @@ public class CalculateValues {
         if(values.get(i) > max){
             max = values.get(i);
         }
-    } 
+    }
     return max;
     }
     
-   
     public int LowestValue(List<Integer> values){
     	this.values = values;
         int min = Integer.MAX_VALUE;
-    for(int i=0; i<values.size(); i++){
-        if(values.get(i) < min){
-            min = values.get(i);
+        for(int i=0; i<values.size(); i++){
+            if(values.get(i) < min){
+                min = values.get(i);
+            }
         }
-        }
-    return min;
+        return min;
     }
            
     public int AverageValue(List<Integer> values){
@@ -42,8 +39,4 @@ public class CalculateValues {
     avg=avg/values.size();
     return avg;
    }
-        
-
 }
-
-
