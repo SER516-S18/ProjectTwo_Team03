@@ -13,17 +13,13 @@ public class Server implements Runnable {
 
 	private int port;
 	private volatile boolean running;
-	private NumberService numberService;
-	private Random rand;
 
 	public Server(int port) {
 		this.port = port;
 		this.running = false;
-		this.rand = new Random();
 	}
 
 	public void startServer() {
-		int channel;
 		Socket request;
 		PrintWriter response;
 		ServerSocket server;
@@ -67,28 +63,24 @@ public class Server implements Runnable {
 
 	private void serviceClient(Socket request, PrintWriter response) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(request.getInputStream()));
-		String[] requestbuf = in.readLine().split(" ");
-		int channel = Integer.parseInt(requestbuf[0]);
-		int frequency = Integer.parseInt(requestbuf[1]);
-		int min = Integer.parseInt(requestbuf[2]);
-		int max = Integer.parseInt(requestbuf[3]);
-
+		int channel = Integer.parseInt(in.readLine());
+		Random rand = new Random();
 		while (this.running) {
 			if (in.ready() && "stop".equals(in.readLine())) {
 				break;
 			}
 			StringBuilder sb = new StringBuilder();
 			for (int i = 0; i < channel; i++) {
-				sb.append(new Integer(this.rand.nextInt(max - min + 1) + min).toString());
+				sb.append(new Integer(rand.nextInt(ServerConstants.DEFAULT_MAX - ServerConstants.DEFAULT_MIN + 1) + ServerConstants.DEFAULT_MIN).toString());
 				if (i < channel - 1) {
-					// Don't have a trailing space on the last entry.
+					// Don't append a trailing space on the last entry.
 					sb.append(" ");
 				}
 			}
 			String resp = sb.toString();
 			response.println(resp);
 			ServerConsole.getInstance().print("Sent response: " + resp);
-			Thread.sleep(frequency * 1000);
+			Thread.sleep(ServerConstants.DEFAULT_FREQ * 1000);
 		}
 		ServerConsole.getInstance().print("Stopping number server");
 	}
@@ -96,7 +88,6 @@ public class Server implements Runnable {
 	@Override
 	public void run() {
 		startServer();
-
 	}
 
 	public synchronized void stop() {

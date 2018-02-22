@@ -67,10 +67,10 @@ public class ClientUi {
 		btnStartStopButton.setBackground(ClientConstants.LIGHTRED);
 		btnStartStopButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			if(client==null|| !client.isRunning){
-				client =new Client();
-				client.start(ClientConstants.CHANNELS);
-			}else if(client.isRunning){
+			if (client == null) {
+				client = new Client(ClientConstants.CHANNELS);
+				client.start();
+			} else if (client.getIsRunning()) {
 				try {
 					client.stop();
 					client=null;
@@ -78,8 +78,6 @@ public class ClientUi {
 					e.printStackTrace();
 				}
 			}
-
-
 			System.out.println("Start/Stop");
 			}
 			

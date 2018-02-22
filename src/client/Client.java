@@ -7,117 +7,140 @@ import java.io.InputStreamReader;
 import java.lang.StringBuilder;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.SynchronousQueue;
 
 import server.ServerConstants;
 import utility.Constants;
 
-public class Client {
-	Socket clientSocket = null;
-	DataOutputStream output = null;
-	BufferedReader input = null;
-	Boolean isRunning=false;
+public class Client implements Runnable {
 
-	public static void main(String[] args) {
+	private volatile Boolean isRunning = false;
+	private volatile String channel;
+	private SynchronousQueue<Boolean> shutdownSignal;
+	private ConcurrentLinkedQueue<String> messageQueue;
 
-		Client client =new Client();
-
-		client.start(2);
+	public Client() {
+		this(new Integer(ClientConstants.CHANNELS));
 	}
 
-	public void start(Integer channels){
+	public Client(Integer channel)  {
+		this.channel = channel.toString() + "\n";
+		this.shutdownSignal = new SynchronousQueue<Boolean>();
+		this.messageQueue = new ConcurrentLinkedQueue<String>();
+	}
 
+	@Override
+	public void run() {
+		Socket client = null;
+		BufferedReader input = null;
+		DataOutputStream output = null;
+		int retries = 0;
+		String resp = null;
 		try {
-			isRunning=true;
-			clientSocket = new Socket(Constants.HOSTNAME, ServerConstants.PORT_NUMBER);
-			System.out.println("Connected");
-			input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-			// sends output to the socket
-			output = new DataOutputStream(clientSocket.getOutputStream());
-
+			client = new Socket(Constants.HOSTNAME, ServerConstants.PORT_NUMBER);
+			input = new BufferedReader(new InputStreamReader(client.getInputStream()));
+			output = new DataOutputStream(client.getOutputStream());
 		} catch (UnknownHostException e) {
 			System.err.println("Unknown host: " + ClientConstants.HOSTNAME);
 		} catch (IOException e) {
 			System.err.println("Connection Exception " + ClientConstants.HOSTNAME + "error: " + e.toString());
 		}
-
+		this.isRunning = true;
+		System.out.println("Connected");
 		try {
-//			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-//			System.out.print("Enter S to start the client: ");
-//			String userInp = br.readLine();
-
-//			output.writeBytes(userInp + "\n");
-
-			// request strings are space delimited structures.
-			// 	channel frequency min max
-			// For example, a channel of 4, with a frequency of 3 seconds and min of 100
-			// and max of 2000 is
-			// 	4 3 100 2000
-			//
-			// Responses are space delimited lists of numbers. So if the channel 5,
-			// you may receive:
-			//
-			// 46 72 3 18 110
-			StringBuilder request = new StringBuilder();
-			request.append(channels.toString()).append(" ") // channel
-					.append("2").append(" ") // frequency
-					.append("0").append(" ") // min
-					.append("100").append(" ") // max
-					.append("\n"); // required newline
-			output.writeBytes(request.toString());
-
-			System.out.println(input.readLine());
-			System.out.println(input.readLine());
-			System.out.println(input.readLine());
-			System.out.println("etc....you know what to do now.");
-			output.writeBytes("stop\n");
-
-////			int n = Integer.parseInt(userInp);
-//			int n = Integer.parseInt(channels.toString());
-//
-//			while (true) {
-//				if (n == 0 || n == -1) {
-//					break;
-//				}
-//				String responseLine = input.readLine();
-//				System.out.println(responseLine);
-//			}
-
-
-
-
-		} catch (UnknownHostException e) {
-			System.err.println("Trying to connect to unknown host: " + e);
-		} catch (IOException e) {
-			System.err.println("IOException:  " + e);
+			output.writeBytes(this.channel);
+		} catch (Exception e) {
+			System.err.println(e.toString());
+			this.isRunning = false;
+			return;
 		}
-
+		while (this.isRunning) {
+			try {
+				resp = input.readLine();
+				if (resp.startsWith("ERROR")) {
+					System.err.println(resp);
+					retries++;
+					if (retries >= ClientConstants.MAX_RETRIES) {
+						System.err.println("Exceeded max retry attempts. Stopped reattempts.");
+						return;
+					}
+				}
+			} catch (UnknownHostException e) {
+				System.err.println("Trying to connect to unknown host: " + e);
+				retries++;
+				if (retries >= ClientConstants.MAX_RETRIES) {
+					System.err.println("Exceeded max retry attempts. Stopped reattempts.");
+					return;
+				}
+			} catch (IOException e) {
+				System.err.println("IOException:  " + e);
+				retries++;
+				if (retries >= ClientConstants.MAX_RETRIES) {
+					System.err.println("Exceeded max retry attempts. Stopped reattempts.");
+					return;
+				}
+			}
+			System.out.println("Enqueuing: " + resp);
+			this.messageQueue.add(resp);
+			// Reset retries after successful exchange.
+			retries = 0;
+		}
+		try {
+			output.writeBytes("stop\n");
+			client.close();
+		} catch (Exception e) {
+			System.err.println(e.toString());
+		}
+		try {
+			this.shutdownSignal.put(new Boolean(true));	
+		} catch (Exception e) {
+			System.err.println(e.toString());
+		}
+		
 	}
 
-	public void updateChannels(Integer channels) throws IOException {
-
-		output.writeBytes("channels:"+ channels.toString() + "\n");
-
-//		int n = Integer.parseInt(channels.toString());
-//
-//		while (true) {
-//			if (n == 0 || n == -1) {
-//				break;
-//			}
-//			String responseLine = input.readLine();
-//			System.out.println(responseLine);
-//		}
-
-
+	public void start() {
+		new Thread(this).start();
 	}
-
 
 	public void stop() throws IOException {
-		isRunning=false;
-		input.close();
-		output.close();
-		clientSocket.close();
+		this.isRunning = false;
+		try {
+			this.shutdownSignal.take();	
+		} catch (Exception e) {
+			System.err.println(e.toString());
+		}
+		System.out.println("Shutdown of number request service complete.");
+	}
 
+	public void updateChannels(Integer channel) throws IOException {
+		if (this.isRunning) {
+			this.stop();	
+		}
+		this.channel = channel.toString() + "\n";
+		this.start();
+	}
+
+	public boolean getIsRunning() {
+		return this.isRunning;
+	}
+
+	public int[] next() {
+		String message = this.messageQueue.poll();
+		if (message == null) {
+			return new int[0];
+		}
+		String[] messages = message.split(" ");
+		int[] integers = new int[messages.length];
+		for (int i = 0; i < messages.length; i++) {
+			try {
+				integers[i] = Integer.parseInt(messages[i]);
+			} catch (Exception e) {
+				System.err.println(e.toString());
+			}
+		}
+		return integers;
 	}
 
 }
