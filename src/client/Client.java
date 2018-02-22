@@ -13,6 +13,15 @@ import java.util.concurrent.SynchronousQueue;
 import server.ServerConstants;
 import utility.Constants;
 
+/**
+* Client embeds a client service which communicates with
+* a remote number service.
+*
+* The class acts as a message queuing buffer for received values.
+* Received values can be retrieved from the buffer at the leisure
+* of the individual client software. I.E. client software can set
+* their own frequency from which to consume from the message queue.
+*/ 
 public class Client implements Runnable {
 
 	private volatile Boolean isRunning = false;
@@ -20,16 +29,30 @@ public class Client implements Runnable {
 	private SynchronousQueue<Boolean> shutdownSignal;
 	private ConcurrentLinkedQueue<String> messageQueue;
 
+	/**
+	* Default constructor. The value channel defaults
+	* to the value found in the ClientConstants class.
+	*/
 	public Client() {
 		this(new Integer(ClientConstants.CHANNELS));
 	}
 
+	/**
+	* Client class constructor.
+	*
+	* @param channel the channel on which this client should request
+	*    				the server.
+	*/
 	public Client(Integer channel)  {
 		this.channel = channel.toString() + "\n";
 		this.shutdownSignal = new SynchronousQueue<Boolean>();
 		this.messageQueue = new ConcurrentLinkedQueue<String>();
 	}
 
+	/**
+	* Starts the embeddable client. Blocks if called outside of the
+	* context of a Thread object.
+	*/
 	@Override
 	public void run() {
 		Socket client = null;
@@ -100,32 +123,64 @@ public class Client implements Runnable {
 		
 	}
 
+	/**
+	* Convenience method for starting this client as a thread.
+	*/
 	public void start() {
 		new Thread(this).start();
 	}
 
+	/**
+	* Stops a running server. Safe to call, even if the server was
+	* already stopped.
+	*
+	* @throws IOException
+	*/
 	public void stop() throws IOException {
+		boolean wasRunning = this.isRunning;
 		this.isRunning = false;
-		try {
+		if (wasRunning) {
+			try {
 			this.shutdownSignal.take();	
-		} catch (Exception e) {
-			System.err.println(e.toString());
+			} catch (Exception e) {
+				System.err.println(e.toString());
+			}	
 		}
 		System.out.println("Shutdown of number request service complete.");
 	}
 
+	/**
+	* Sets the client channel. If the client was running, it will be
+	* restarted with the updated value.
+	*
+	* @apram channel the channel update to.
+	*/
 	public void updateChannels(Integer channel) throws IOException {
-		if (this.isRunning) {
-			this.stop();	
-		}
+		boolean wasRunning = this.isRunning;
 		this.channel = channel.toString() + "\n";
-		this.start();
+		if (wasRunning) {
+			this.stop();	
+			this.start();
+		}
 	}
 
+	/**
+	* Returns whether the client is running.
+	*
+	* @return whether the client is running.
+	*/
 	public boolean getIsRunning() {
 		return this.isRunning;
 	}
 
+	/**
+	* Retrieves the next message in the message queuem which is
+	* an array of numbers sent from the server. The number of items
+	* in the array is equivalent to the channel value at the time that
+	* the message was requests. Returns an empty array if no message is ready.
+	*
+	* @return the next message
+	*/
 	public int[] next() {
 		String message = this.messageQueue.poll();
 		if (message == null) {
