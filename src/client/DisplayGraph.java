@@ -24,17 +24,17 @@ public class DisplayGraph extends JPanel {
     private static final int BORDER_GAP = 10;
     private static final Stroke GRAPH_STROKE = new BasicStroke(1f);
     private static final int GRAPH_POINT_WIDTH = 7;
-    private static final int MAX_LIST_SIZE = 100;
+    private static final int MAX_LIST_SIZE = 70;
     private List<Integer> list1 = new ArrayList<Integer>();
     private List<Integer> list2 = new ArrayList<Integer>();
     private List<Integer> list3 = new ArrayList<Integer>();
     private List<Integer> list4 = new ArrayList<Integer>();
     private List<Integer> list5 = new ArrayList<Integer>();
-    private List<Point> graphPoints1 = new ArrayList<Point>();
-    private List<Point> graphPoints2 = new ArrayList<Point>();
-    private List<Point> graphPoints3 = new ArrayList<Point>();
-    private List<Point> graphPoints4 = new ArrayList<Point>();
-    private List<Point> graphPoints5 = new ArrayList<Point>();
+    private List<Point> graphPoints1;
+    private List<Point> graphPoints2;
+    private List<Point> graphPoints3;
+    private List<Point> graphPoints4;
+    private List<Point> graphPoints5;
     private Stroke oldStroke1;
     private Stroke oldStroke2;
     private Stroke oldStroke3;
@@ -78,6 +78,11 @@ public class DisplayGraph extends JPanel {
      */
     @Override
     protected void paintComponent(Graphics g) {
+      graphPoints1 = new ArrayList<Point>();
+      graphPoints2 = new ArrayList<Point>();
+      graphPoints3 = new ArrayList<Point>();
+      graphPoints4 = new ArrayList<Point>();
+      graphPoints5 = new ArrayList<Point>();
        super.paintComponent(g);
        Graphics2D g2 = (Graphics2D)g;
        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -159,12 +164,11 @@ public class DisplayGraph extends JPanel {
       s = ga.getStroke();
       ga.setColor(gc);
         ga.setStroke(GRAPH_STROKE);
-        for (int i = 0; i < p.size() - 1; i++) {
-           int x1 = p.get(i).x;
-           int y1 = p.get(i).y;
-           int x2 = p.get(i + 1).x;
-           int y2 = p.get(i + 1).y;
-           System.out.println(x1+" "+y1+" "+x2+" "+y2);
+        for (int i = 1; i < p.size(); i++) {
+           int x1 = p.get(i-1).x;
+           int y1 = p.get(i-1).y;
+           int x2 = p.get(i).x;
+           int y2 = p.get(i).y;
            ga.drawLine(x1, y1, x2, y2);         
         }
         return s;
