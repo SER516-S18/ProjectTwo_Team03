@@ -184,7 +184,7 @@ public class ClientUi implements ActionListener {
         textConsole.setBounds(10, 550, 760, 100);
         textConsole.setBorder(BorderFactory.createLineBorder(Color.black));
         ClientConsole cc = ClientConsole.getInstance();
-		cc.setJtextPane(textConsole);
+	cc.setJtextPane(textConsole);
         clientFrame.getContentPane().add(textConsole);
         
         Thread t = new Thread(new Runnable() { 
@@ -235,7 +235,6 @@ public class ClientUi implements ActionListener {
             } else if (client.getIsRunning()) {
                 try {
                     client.stop();
-                    client = null;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
