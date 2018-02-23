@@ -1,7 +1,6 @@
 package server;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
@@ -40,6 +39,7 @@ public class Server implements Runnable {
     * 
     * If not called via a Thread object, this method will block indefinitely.
     */
+    @SuppressWarnings("resource")
     private void startServer() {
         Socket request;
         PrintWriter response;
@@ -56,7 +56,7 @@ public class Server implements Runnable {
         while (this.running) {
             try {
                 request = server.accept();
-                response = new PrintWriter(request.getOutputStream(), true); // true for autoflush on println
+                response = new PrintWriter(request.getOutputStream(), true); // true for auto-flush on println
             } catch (Exception e) {
                 ServerConsole.getInstance().print("Failed to accept connection.");
                 continue;
