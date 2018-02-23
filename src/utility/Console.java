@@ -2,7 +2,7 @@ package utility;
 
 /**
  * @SER516 Project2_Team03
- * @Version 2.0
+ * @Version 3.0
  */
 
 import javax.swing.JTextPane;
@@ -14,7 +14,7 @@ import javax.swing.JTextPane;
 public abstract class Console {
 
     protected JTextPane consolePane;
-    protected static Console instance = null;
+    protected Console instance = null;
 
     /*
     * getInstance returns the Console object
