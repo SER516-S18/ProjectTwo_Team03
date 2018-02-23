@@ -16,7 +16,7 @@ public class BlinkingText extends JLabel {
     private static final int BLINKING_RATE = 1000;
     
     /**
-     * Starts a thread which displays the blinking text.
+     * Sets the text value and starts a thread.
      */
     public void start(){
         super.setText("Server Is Running");
@@ -26,14 +26,14 @@ public class BlinkingText extends JLabel {
     }
     
     /**
-     * Stops the thread.
+     * Sets an empty text and stops the thread.
      */
     public void stop(){
         super.setText("");
     }
     
     /**
-     * Working of the thread class for blinking text signifying running server.
+     * Implementation of blinking using threads.
      */
     private class TimerListener implements ActionListener {
         private BlinkingText text;
