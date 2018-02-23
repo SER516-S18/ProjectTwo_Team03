@@ -167,7 +167,6 @@ public class Client implements Runnable {
     /**
     * Returns whether the client is running.
     *
-    * @return whether the client is running.
     */
     public boolean getIsRunning() {
         return this.isRunning;
@@ -179,7 +178,6 @@ public class Client implements Runnable {
     * in the array is equivalent to the channel value at the time that
     * the message was requests. Returns an empty array if no message is ready.
     *
-    * @return the next message
     */
     public int[] next() {
         String message = this.messageQueue.poll();

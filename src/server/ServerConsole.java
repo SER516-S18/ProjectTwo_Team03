@@ -1,9 +1,9 @@
 package server;
 
 /**
- * @SER516 Project2_Team03
- * @Version 3.0
- */
+* @SER516 Project2_Team03
+* @Version 3.0
+*/
 
 import utility.Console;
 
