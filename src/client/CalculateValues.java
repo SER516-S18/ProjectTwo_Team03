@@ -38,7 +38,10 @@ public class CalculateValues {
             if(values.get(i) > max){
                 max = values.get(i);
             }
-        } 
+        }
+        if(max == Integer.MIN_VALUE) {    
+            return "0";
+        }
         return String.valueOf(max);
     }
 
@@ -49,6 +52,9 @@ public class CalculateValues {
             if(values.get(i) < min){
                 min = values.get(i);
             }
+        }
+        if(min == Integer.MAX_VALUE) {
+            return "0";
         }
         return String.valueOf(min);
     }
