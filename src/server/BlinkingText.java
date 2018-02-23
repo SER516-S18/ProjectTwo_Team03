@@ -33,8 +33,7 @@ public class BlinkingText extends JLabel {
     }
     
     /**
-     * Working of the thread class.
-     *
+     * Working of the thread class for blinking text signifying running server.
      */
     private class TimerListener implements ActionListener {
         private BlinkingText text;
