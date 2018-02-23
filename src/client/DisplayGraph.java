@@ -80,6 +80,6 @@ public class DisplayGraph extends JPanel {
     //Gets the dimensions of the outer panel.
     @Override
     public Dimension getPreferredSize() {
-       return new Dimension(WIDTH, HEIGHT);
+      return new Dimension(WIDTH, HEIGHT);
     }
 }

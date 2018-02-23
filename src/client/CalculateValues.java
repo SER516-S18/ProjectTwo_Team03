@@ -11,12 +11,12 @@ public class CalculateValues {
     public int HighestValue(List<Integer> values){
         this.values = values;
         int max = Integer.MIN_VALUE;
-    for(int i=0; i<values.size(); i++){
-        if(values.get(i) > max){
-            max = values.get(i);
+        for(int i=0; i<values.size(); i++){
+            if(values.get(i) > max){
+                max = values.get(i);
+            }
         }
-    }
-    return max;
+        return max;
     }
     
     public int LowestValue(List<Integer> values){
@@ -36,7 +36,7 @@ public class CalculateValues {
         for(int i=0; i<values.size(); i++){
             avg+= values.get(i);
         }
-    avg=avg/values.size();
-    return avg;
+        avg=avg/values.size();
+        return avg;
    }
 }
