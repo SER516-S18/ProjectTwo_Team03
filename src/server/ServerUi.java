@@ -44,23 +44,33 @@ public class ServerUi {
 		});
 	}
 
+	/**
+	* Setter for the severThread member. 
+	*
+	* @param serverThread
+	*/
 	public void setServerThread(Server serverThread) {
 		this.serverThread = serverThread;
 	}
 
+	/**
+	* Getter for serverThread member. 
+	*
+	* @return a handle to the thread of te underlying server.
+	*/ 
 	public Server getServerThread() {
 		return this.serverThread;
 	}
 
 	/**
-	 * Create the application.
+	 * Creates the application.
 	 */
 	public ServerUi() {
 		initialize();
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initializes the contents of the frame using system defaults.
 	 */
 	private void initialize() {
 		serverFrame = new JFrame();
