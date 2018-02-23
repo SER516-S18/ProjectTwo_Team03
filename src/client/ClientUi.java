@@ -170,12 +170,13 @@ public class ClientUi implements ActionListener {
         channelDropDown.setBorder(BorderFactory.createLineBorder(Color.black));
         channelDropDown.addActionListener(this);
         
-        JTextPane textFrequency = new JTextPane();
+        textFrequency = new JTextPane();
         textFrequency.setBounds(615, 373, 126, 80);
         panel.add(textFrequency);
         textFrequency.setBackground(ClientConstants.LIGHTRED);
         textFrequency.setFont(ClientConstants.COURIERFONT);
         textFrequency.setBorder(BorderFactory.createLineBorder(Color.black));
+        textFrequency.setText(String.valueOf(ClientConstants.DEFAULT_FREQ));
 
         JTextPane textConsole = new JTextPane();
         textConsole.setText("Console:");
@@ -235,7 +236,9 @@ public class ClientUi implements ActionListener {
         else if (event.equalsIgnoreCase("Start / Stop")) {
             if (client == null || !client.getIsRunning()) {
                 client = new Client(ClientConstants.CHANNELS);
-                ClientConstants.DEFAULT_FREQ = Integer.parseInt(textFrequency.getText());
+                if(!textFrequency.getText().equals("")) {
+                    ClientConstants.DEFAULT_FREQ = Integer.parseInt(textFrequency.getText());
+                }
                 client.start();
             } else if (client.getIsRunning()) {
                 try {
