@@ -106,6 +106,7 @@ public class Client implements Runnable {
             }
             System.out.println("Enqueuing: " + resp);
             this.messageQueue.add(resp);
+            CalculateValues valueObject = new CalculateValues(this.messageQueue);
             // Reset retries after successful exchange.
             retries = 0;
         }
@@ -179,16 +180,16 @@ public class Client implements Runnable {
     * the message was requests. Returns an empty array if no message is ready.
     *
     */
-    public int[] next() {
+    public List<Integer> next() {
         String message = this.messageQueue.poll();
         if (message == null) {
-            return new int[0];
+            return new ArrayList<Integer>(0);
         }
         String[] messages = message.split(" ");
-        int[] integers = new int[messages.length];
+        List<Integer> integers = new ArrayList<Integer>();
         for (int i = 0; i < messages.length; i++) {
             try {
-                integers[i] = Integer.parseInt(messages[i]);
+                integers.add(Integer.parseInt(messages[i]));
             } catch (Exception e) {
                 System.err.println(e.toString());
             }
