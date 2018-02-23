@@ -37,21 +37,21 @@ public class BlinkingText extends JLabel {
      *
      */
     private class TimerListener implements ActionListener {
-            private BlinkingText text;
-            private boolean isForeground = true;
-            
-            public TimerListener(BlinkingText text) {
-              this.text = text;
+        private BlinkingText text;
+        private boolean isForeground = true;
+        
+        public TimerListener(BlinkingText text) {
+          this.text = text;
+        }
+     
+        public void actionPerformed(ActionEvent e) {
+            if (isForeground) {
+              text.setForeground(Color.BLACK);
             }
-         
-            public void actionPerformed(ActionEvent e) {
-                if (isForeground) {
-                  text.setForeground(Color.BLACK);
-                }
-                else {
-                  text.setForeground(Color.WHITE);
-                }
-                isForeground = !isForeground;
+            else {
+              text.setForeground(Color.WHITE);
             }
+            isForeground = !isForeground;
+        }
     }
 }

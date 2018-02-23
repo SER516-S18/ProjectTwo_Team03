@@ -201,7 +201,6 @@ public class ClientUi {
         channelDropDown.setFont(ClientConstants.COURIERFONT);
         channelDropDown.setBorder(BorderFactory.createLineBorder(Color.black));
         channelDropDown.addActionListener(new ActionListener() {
-            
             @Override
             public void actionPerformed(ActionEvent e) {
 
