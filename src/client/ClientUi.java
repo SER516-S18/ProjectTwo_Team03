@@ -8,7 +8,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 
 import java.awt.BorderLayout;
-//import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -183,10 +182,12 @@ public class ClientUi implements ActionListener {
         textConsole.setBackground(ClientConstants.CONSOLECOLOR);
         textConsole.setBounds(10, 550, 760, 100);
         textConsole.setBorder(BorderFactory.createLineBorder(Color.black));
-        ClientConsole cc = ClientConsole.getInstance();
-	cc.setJtextPane(textConsole);
+        ClientConsole cc = new ClientConsole();
+        cc.getInstance();
+        cc.setJtextPane(textConsole);
         clientFrame.getContentPane().add(textConsole);
         
+        //Sets values for all the labels.
         Thread t = new Thread(new Runnable() { 
             @Override
             public void run() {
@@ -210,7 +211,9 @@ public class ClientUi implements ActionListener {
         t.start();
         
     }
-
+    /**
+     * Handles the actions for start/stop button and channel change.
+     */
     @Override
     public void actionPerformed(ActionEvent ev) {
         String event = ev.getActionCommand();
@@ -242,3 +245,5 @@ public class ClientUi implements ActionListener {
         }
     }
 }
+
+
