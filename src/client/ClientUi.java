@@ -185,6 +185,7 @@ public class ClientUi implements ActionListener {
         textConsole.setBorder(BorderFactory.createLineBorder(Color.black));
         ClientConsole cc = ClientConsole.getInstance();
         cc.setJtextPane(textConsole);
+        cc.print("hello");
         clientFrame.getContentPane().add(textConsole);
         
         //Sets values for all the labels.
