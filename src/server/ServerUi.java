@@ -122,20 +122,6 @@ public class ServerUi {
 
 		JButton btnNewButton = new JButton("Start / Stop");
 		btnNewButton.setBackground(ServerConstants.LIGHTRED);
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				serverRunning = !serverRunning;
-				if (serverRunning == true) {
-					T.start();
-					TextInputs.SetInputs(textHighest.getText(), textLowest.getText(), textFrequencyHZ.getText());
-					setServerThread(Server.createServerThread());
-				} else {
-					T.stop();
-					getServerThread().stop();
-
-				}
-			}
-		});
 		btnNewButton.setFont(ServerConstants.COURIERFONT);
 		btnNewButton.setBounds(448, 13, 192, 34);
 		btnNewButton.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -179,5 +165,20 @@ public class ServerUi {
 		ServerConsole sc = ServerConsole.getInstance();
 		sc.setJtextPane(textConsole);
 		serverFrame.getContentPane().add(textConsole);
+		
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				serverRunning = !serverRunning;
+				if (serverRunning == true) {
+					T.start();
+					TextInputs.SetInputs(textHighest.getText(), textLowest.getText(), textFrequencyHZ.getText());
+					setServerThread(Server.createServerThread());
+				} else {
+					T.stop();
+					getServerThread().stop();
+
+				}
+			}
+		});
 	}
 }
