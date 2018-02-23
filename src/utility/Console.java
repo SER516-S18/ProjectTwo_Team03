@@ -2,7 +2,7 @@ package utility;
 
 /**
  * @SER516 Project2_Team03
- * @Version 3.0
+ * @Version 4.0
  */
 
 import javax.swing.JTextPane;
@@ -11,17 +11,10 @@ import javax.swing.JTextPane;
 * This class is used for logging messages to the 
 * GUI console.
 */
-public abstract class Console {
+public  class Console {
 
     protected JTextPane consolePane;
-    protected Console instance = null;
 
-    /*
-    * getInstance returns the Console object
-    *
-    */
-  public abstract Console getInstance();
-        
     
     /**
     * Sets the GUI console text to the provided message.
