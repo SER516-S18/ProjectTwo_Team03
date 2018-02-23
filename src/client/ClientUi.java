@@ -28,6 +28,7 @@ public class ClientUi implements ActionListener {
     private JFrame clientFrame;
     private Client client = new Client();
     JComboBox<String> channelDropDown = null;
+    JTextPane textFrequency = null;
 
     /**
      * Launch the application.
@@ -200,7 +201,7 @@ public class ClientUi implements ActionListener {
                     graph.add(g,BorderLayout.CENTER);
                     graph.repaint();
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(1000/ClientConstants.DEFAULT_FREQ);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -234,6 +235,7 @@ public class ClientUi implements ActionListener {
         else if (event.equalsIgnoreCase("Start / Stop")) {
             if (client == null || !client.getIsRunning()) {
                 client = new Client(ClientConstants.CHANNELS);
+                ClientConstants.DEFAULT_FREQ = Integer.parseInt(textFrequency.getText());
                 client.start();
             } else if (client.getIsRunning()) {
                 try {
