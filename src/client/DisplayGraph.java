@@ -17,8 +17,8 @@ import javax.swing.*;
  * @Version 1.0
  */
 public class DisplayGraph extends JPanel {
-  private static final long serialVersionUID = 1L;
-  private static final int MAX_VALUE = 100;
+    private static final long serialVersionUID = 1L;
+    private static final int MAX_VALUE = 100;
     private static final int WIDTH = 430;
     private static final int HEIGHT = 430;
     private static final int BORDER_GAP = 10;
@@ -78,11 +78,11 @@ public class DisplayGraph extends JPanel {
      */
     @Override
     protected void paintComponent(Graphics g) {
-      graphPoints1 = new ArrayList<Point>();
-      graphPoints2 = new ArrayList<Point>();
-      graphPoints3 = new ArrayList<Point>();
-      graphPoints4 = new ArrayList<Point>();
-      graphPoints5 = new ArrayList<Point>();
+       graphPoints1 = new ArrayList<Point>();
+       graphPoints2 = new ArrayList<Point>();
+       graphPoints3 = new ArrayList<Point>();
+       graphPoints4 = new ArrayList<Point>();
+       graphPoints5 = new ArrayList<Point>();
        super.paintComponent(g);
        Graphics2D g2 = (Graphics2D)g;
        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
