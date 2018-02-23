@@ -62,17 +62,11 @@ public class ServerUi {
 		return this.serverThread;
 	}
 
-	/**
-	 * Creates the application.
-	 */
-	public ServerUi() {
-		initialize();
-	}
 
 	/**
-	 * Initializes the contents of the frame using system defaults.
+	 * Creates the graphical user interface.
 	 */
-	private void initialize() {
+	public ServerUi() {
 		serverFrame = new JFrame();
 		serverFrame.getContentPane().setBackground(ServerConstants.FRAMECOLOR);
 		serverFrame.setTitle("Server");
