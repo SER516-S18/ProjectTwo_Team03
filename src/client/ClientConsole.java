@@ -1,4 +1,3 @@
-
 package client;
 
 /**
@@ -20,12 +19,12 @@ public class ClientConsole extends Console
     *
     */
 
-	public ClientConsole getInstance() {
+    public static ClientConsole getInstance() {
         if (instance == null) {
             instance = new ClientConsole();
         }
         return instance;
     }
-	
+    
 }
 

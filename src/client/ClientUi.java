@@ -30,6 +30,7 @@ public class ClientUi implements ActionListener {
     JComboBox<String> channelDropDown = null;
     JTextPane textFrequency = null;
 
+    
     /**
      * Launch the application.
      */
@@ -176,16 +177,13 @@ public class ClientUi implements ActionListener {
         textFrequency.setBackground(ClientConstants.LIGHTRED);
         textFrequency.setFont(ClientConstants.COURIERFONT);
         textFrequency.setBorder(BorderFactory.createLineBorder(Color.black));
-        textFrequency.setText(String.valueOf(ClientConstants.DEFAULT_FREQ));
 
         JTextPane textConsole = new JTextPane();
-        textConsole.setText("Console:");
         textConsole.setFont(ClientConstants.COURIERFONT);
         textConsole.setBackground(ClientConstants.CONSOLECOLOR);
         textConsole.setBounds(10, 550, 760, 100);
         textConsole.setBorder(BorderFactory.createLineBorder(Color.black));
-        ClientConsole cc = new ClientConsole();
-        cc.getInstance();
+        ClientConsole cc = ClientConsole.getInstance();
         cc.setJtextPane(textConsole);
         clientFrame.getContentPane().add(textConsole);
         
@@ -202,7 +200,7 @@ public class ClientUi implements ActionListener {
                     graph.add(g,BorderLayout.CENTER);
                     graph.repaint();
                     try {
-                        Thread.sleep(1000/ClientConstants.DEFAULT_FREQ);
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -240,9 +238,11 @@ public class ClientUi implements ActionListener {
                     ClientConstants.DEFAULT_FREQ = Integer.parseInt(textFrequency.getText());
                 }
                 client.start();
+                ClientConsole.getInstance().print("Client is running");
             } else if (client.getIsRunning()) {
                 try {
                     client.stop();
+                    ClientConsole.getInstance().print("Client has stopped");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -29,6 +29,7 @@ public class Client implements Runnable {
     private volatile String channel;
     private SynchronousQueue<Boolean> shutdownSignal;
     private ConcurrentLinkedQueue<String> messageQueue;
+    
 
     /**
     * Default constructor. The value channel defaults
@@ -106,6 +107,7 @@ public class Client implements Runnable {
                 }
             }
             System.out.println("Enqueuing: " + resp);
+            ClientConsole.getInstance().print("Values Received from Server: "+ resp);
             this.messageQueue.add(resp);
             new CalculateValues(this.messageQueue);
             // Reset retries after successful exchange.
