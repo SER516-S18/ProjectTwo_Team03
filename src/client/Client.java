@@ -4,9 +4,10 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.StringBuilder;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.SynchronousQueue;
 
@@ -106,7 +107,7 @@ public class Client implements Runnable {
             }
             System.out.println("Enqueuing: " + resp);
             this.messageQueue.add(resp);
-            CalculateValues valueObject = new CalculateValues(this.messageQueue);
+            new CalculateValues(this.messageQueue);
             // Reset retries after successful exchange.
             retries = 0;
         }

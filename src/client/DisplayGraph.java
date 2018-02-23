@@ -17,8 +17,8 @@ import javax.swing.*;
  * @Version 1.0
  */
 public class DisplayGraph extends JPanel {
-	private static final long serialVersionUID = 1L;
-	private static final int MAX_VALUE = 100;
+  private static final long serialVersionUID = 1L;
+  private static final int MAX_VALUE = 100;
     private static final int WIDTH = 430;
     private static final int HEIGHT = 430;
     private static final int BORDER_GAP = 10;
@@ -46,31 +46,31 @@ public class DisplayGraph extends JPanel {
      * @param rvalues contains values received from server after a certain time interval.
      */
     public void addValues(List<Integer> rvalues){
-    	if(rvalues.size()==1){
-    		list1.add(rvalues.get(0));
-    	}
-    	if(rvalues.size()==2){
-	        list1.add(rvalues.get(0));
-	    	list2.add(rvalues.get(1));
-    	}
-    	if(rvalues.size()==3){
-    		list1.add(rvalues.get(0));
-	    	list2.add(rvalues.get(1));
-	    	list3.add(rvalues.get(2));
-    	}
-    	if(rvalues.size()==4){
-    		list1.add(rvalues.get(0));
-	    	list2.add(rvalues.get(1));
-	    	list3.add(rvalues.get(2));
-	    	list4.add(rvalues.get(3));
-    	}
-    	if(rvalues.size()==5){
-    		list1.add(rvalues.get(0));
-	    	list2.add(rvalues.get(1));
-	    	list3.add(rvalues.get(2));
-	    	list4.add(rvalues.get(3));
-	    	list5.add(rvalues.get(4));
-    	}
+      if(rvalues.size()==1){
+        list1.add(rvalues.get(0));
+      }
+      if(rvalues.size()==2){
+          list1.add(rvalues.get(0));
+        list2.add(rvalues.get(1));
+      }
+      if(rvalues.size()==3){
+        list1.add(rvalues.get(0));
+        list2.add(rvalues.get(1));
+        list3.add(rvalues.get(2));
+      }
+      if(rvalues.size()==4){
+        list1.add(rvalues.get(0));
+        list2.add(rvalues.get(1));
+        list3.add(rvalues.get(2));
+        list4.add(rvalues.get(3));
+      }
+      if(rvalues.size()==5){
+        list1.add(rvalues.get(0));
+        list2.add(rvalues.get(1));
+        list3.add(rvalues.get(2));
+        list4.add(rvalues.get(3));
+        list5.add(rvalues.get(4));
+      }
     }
     
     /**
@@ -140,7 +140,7 @@ public class DisplayGraph extends JPanel {
      * @param yScale contains the vertical dimension of the graph
      */
     public void createPoints(List<Point> p, List<Integer> l, double xScale, double yScale){
-    	for (int i = 0; i < l.size(); i++) {
+      for (int i = 0; i < l.size(); i++) {
             int x1 = (int) (i * xScale + BORDER_GAP);
             int y1 = (int) ((MAX_VALUE - l.get(i)) * yScale + BORDER_GAP);
             p.add(new Point(x1, y1));
@@ -156,14 +156,15 @@ public class DisplayGraph extends JPanel {
      * @return contains the stroke component that has been generated
      */
     public Stroke plotLines(Graphics2D ga, Stroke s, List<Point> p, Color gc){
-    	s = ga.getStroke();
-    	ga.setColor(gc);
+      s = ga.getStroke();
+      ga.setColor(gc);
         ga.setStroke(GRAPH_STROKE);
         for (int i = 0; i < p.size() - 1; i++) {
            int x1 = p.get(i).x;
            int y1 = p.get(i).y;
            int x2 = p.get(i + 1).x;
            int y2 = p.get(i + 1).y;
+           System.out.println(x1+" "+y1+" "+x2+" "+y2);
            ga.drawLine(x1, y1, x2, y2);         
         }
         return s;

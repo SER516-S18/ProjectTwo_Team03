@@ -15,7 +15,8 @@ public class CalculateValues {
     static List<Integer> values = new ArrayList<Integer>();
 
     public CalculateValues(ConcurrentLinkedQueue<String> messageQueue) {
-        String message = messageQueue.poll();
+        ConcurrentLinkedQueue<String> newMessageQueue =  new ConcurrentLinkedQueue<String>(messageQueue);
+        String message = newMessageQueue.poll();
         String[] messages = message.split(" ");
         for (int i = 0; i < messages.length; i++) {
             try {
@@ -38,7 +39,6 @@ public class CalculateValues {
                 max = values.get(i);
             }
         } 
-        System.out.println(max);
         return String.valueOf(max);
     }
 

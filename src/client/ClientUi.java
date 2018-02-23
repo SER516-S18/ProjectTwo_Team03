@@ -7,6 +7,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
+import java.awt.BorderLayout;
 //import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -25,32 +26,32 @@ import java.io.IOException;
  */
 
 public class ClientUi implements ActionListener {
-	private JFrame clientFrame;
-	private Client client = null;
-	JComboBox<String> channelDropDown = null;
+    private JFrame clientFrame;
+    private Client client = new Client();
+    JComboBox<String> channelDropDown = null;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ClientUi clientUi = new ClientUi();
-					clientUi.clientFrame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    /**
+     * Launch the application.
+     */
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    ClientUi clientUi = new ClientUi();
+                    clientUi.clientFrame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 
-	/**
-	 * Create the graphical user interface
-	 */
-	public ClientUi() {
-		
-		CalculateValues valueObject = new CalculateValues(); 
+    /**
+     * Create the graphical user interface
+     */
+    public ClientUi() {
+        
+        CalculateValues valueObject = new CalculateValues(); 
         clientFrame = new JFrame();
         clientFrame.getContentPane().setBackground(ClientConstants.FRAMECOLOR);
         clientFrame.setTitle("Client");
@@ -78,6 +79,8 @@ public class ClientUi implements ActionListener {
         panel.add(graph);
         graph.setBackground(ClientConstants.LIGHTRED);
         graph.setBorder(BorderFactory.createLineBorder(Color.black));
+        
+        DisplayGraph g = new DisplayGraph();
 
         JLabel lblHighValue = new JLabel("<html>Highest<br>value:</html>");
         lblHighValue.setBounds(470, 13, 133, 80);
@@ -183,28 +186,30 @@ public class ClientUi implements ActionListener {
         clientFrame.getContentPane().add(textConsole);
         
         Thread t = new Thread(new Runnable() { 
-			@Override
-			public void run() {
-				while(true)
-				{
-					textHighValue.setText(valueObject.HighestValue());
-					textLowValue.setText(valueObject.LowestValue());
-					textAvg.setText(valueObject.AverageValue());
+            @Override
+            public void run() {
+                while(true)
+                {
+                    textHighValue.setText(valueObject.HighestValue());
+                    textLowValue.setText(valueObject.LowestValue());
+                    textAvg.setText(valueObject.AverageValue());
+                    g.addValues(client.next());
+                    graph.add(g,BorderLayout.CENTER);
+                    graph.repaint();
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }       
+            }
 
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}		
-			}
+        });
+        t.start();
+        
+    }
 
-		});
-		t.start();
-		
-	}
-
-	@Override
+    @Override
     public void actionPerformed(ActionEvent ev) {
         String event = ev.getActionCommand();
         System.out.println(event);
@@ -234,5 +239,5 @@ public class ClientUi implements ActionListener {
                 }
             }
         }
-	}
+    }
 }
