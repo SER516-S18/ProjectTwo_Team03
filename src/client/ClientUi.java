@@ -45,6 +45,7 @@ public class ClientUi {
             }
         });
     }
+	
 
     /**
      * Create the graphical user interface
@@ -188,7 +189,27 @@ public class ClientUi {
         textAvg.setBackground(ClientConstants.LIGHTRED);
         textAvg.setFont(ClientConstants.COURIERFONT);
         textAvg.setBorder(BorderFactory.createLineBorder(Color.black));
-        
+       
+	 Thread t = new Thread(new Runnable() { 
+			@Override
+			public void run() {
+				while(true)
+				{
+					textHighValue.setText(valueObject.HighestValue());
+					textLowValue.setText(valueObject.LowestValue());
+					textAvg.setText(valueObject.AverageValue());
+
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}		
+			}
+
+		});
+		t.start();
+
         String[] channels = { "1", "2", "3", "4", "5" };
 
         JComboBox<String> channelDropDown = new JComboBox<String>(channels);
@@ -201,7 +222,6 @@ public class ClientUi {
         channelDropDown.setFont(ClientConstants.COURIERFONT);
         channelDropDown.setBorder(BorderFactory.createLineBorder(Color.black));
         channelDropDown.addActionListener(new ActionListener() {
-            
             @Override
             public void actionPerformed(ActionEvent e) {
 
