@@ -107,7 +107,7 @@ public class Server implements Runnable {
             String resp = integers.toString();
             response.println(resp);
             ServerConsole.getInstance().print("Sent response: " + resp);
-            Thread.sleep(ServerConstants.DEFAULT_FREQ * 1000);
+            Thread.sleep(1000/ServerConstants.DEFAULT_FREQ);
         }
         ServerConsole.getInstance().print("Stopping number server");
     }
