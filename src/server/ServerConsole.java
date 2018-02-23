@@ -1,6 +1,9 @@
 package server;
 
-import javax.swing.JTextPane;
+/**
+ * @SER516 Project2_Team03
+ * @Version 3.0
+ */
 
 import utility.Console;
 
@@ -8,25 +11,20 @@ import utility.Console;
 * Class used for logging to the server's
 * GUI console.
 */
-public class ServerConsole extends Console{
+public class ServerConsole extends Console
+{
+   private static ServerConsole instance = null;
 
-    /**
-    * Private constructor for purpose of the singleton pattern.
-    */
-    private ServerConsole() {}
-
-    /**
-    * getInstance returns the singleton ServerConsole object
+    /*
+    * getInstance returns the ServerConsole object
     *
-    * @return the singleton ServerConsole object
     */
-    @Override
-    public Console getInstance() {
+    
+    public static ServerConsole getInstance() {
         if (instance == null) {
             instance = new ServerConsole();
         }
         return instance;
     }
-
     
 }
