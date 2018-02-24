@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+/**
+ *@SER516 Project2_Team03
+ * @Version 1.0
+ */
 public class CalculateValues {
-
-    /**
-     * Accepts the list of integers to be plotted.
-     * @param values
-     */
-
-
     static List<Integer> values = new ArrayList<Integer>();
-
+    
+    /**
+     * Constructor that converts the values received into an integer array
+     * @param messageQueue a queue that contains all the values received from the server.
+     */
     public CalculateValues(ConcurrentLinkedQueue<String> messageQueue) {
         ConcurrentLinkedQueue<String> newMessageQueue =  new ConcurrentLinkedQueue<String>(messageQueue);
         String message = newMessageQueue.poll();
@@ -31,7 +32,10 @@ public class CalculateValues {
     public CalculateValues() {
 
     }
-
+    /**
+     * Calculates the highest value from all the received values.
+     * @return contains the highest value
+     */
     public String HighestValue(){
         int max = Integer.MIN_VALUE;
         for(int i=0; i<values.size(); i++){
@@ -45,7 +49,10 @@ public class CalculateValues {
         return String.valueOf(max);
     }
 
-
+    /**
+     * Calculates the lowest value from all the received values.
+     * @return contains the lowest value
+     */
     public String LowestValue(){
         int min = Integer.MAX_VALUE;
         for(int i=0; i<values.size(); i++){
@@ -58,7 +65,11 @@ public class CalculateValues {
         }
         return String.valueOf(min);
     }
-
+    
+    /**
+     * Calculates the average value from all the received values.
+     * @return contains the average value
+     */
     public String AverageValue(){
         int avg = 0;
         if(values.size() != 0) {
