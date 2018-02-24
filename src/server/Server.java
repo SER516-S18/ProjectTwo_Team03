@@ -80,6 +80,11 @@ public class Server implements Runnable {
             }
         }
         ServerConsole.getInstance().print("Server is Stopped");
+        try {
+            server.close();
+        } catch (Exception e) {
+            ServerConsole.getInstance().print(e.toString());
+        }
     }
 
     /**
