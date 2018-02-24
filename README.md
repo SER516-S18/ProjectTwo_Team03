@@ -1,6 +1,6 @@
 # ProjectTwo_Team03
 
-## To Run The Project
+## To Run the Project
 Run in the following sequence, first start the Server and then start the Client.
 ### For Server
 `java -jar ServerUi.jar`
