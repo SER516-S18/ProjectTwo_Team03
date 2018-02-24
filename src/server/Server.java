@@ -39,7 +39,6 @@ public class Server implements Runnable {
     * 
     * If not called via a Thread object, this method will block indefinitely.
     */
-    @SuppressWarnings("resource")
     private void startServer() {
         Socket request;
         PrintWriter response;
